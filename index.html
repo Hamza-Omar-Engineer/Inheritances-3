@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الوراثة في C# | برمجة 3</title>
+<style>
+
+  :root {
+    --bg: #130d17;
+    --surface: #161b22;
+    --surface2: #1f2937;
+    --border: #30363d;
+    --accent: #58a6ff;
+    --accent2: #3fb950;
+    --accent3: #f78166;
+    --accent4: #d2a8ff;
+    --text: #e6edf3;
+    --text-muted: #8b949e;
+    --code-bg: #0d1117;
+    --tag-bg: #1f2d3d;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Tajawal', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 16px;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(13,17,23,0.95);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(10px);
+    padding: 0 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 56px;
+  }
+  .nav-brand {
+    font-family: 'IBM Plex Mono', monospace;
+    color: var(--accent); font-size: 0.9rem; font-weight: 600;
+  }
+  .nav-links { display: flex; gap: 0.3rem; }
+  .nav-links a {
+    color: var(--text-muted); text-decoration: none;
+    font-size: 0.8rem; padding: 0.3rem 0.7rem; border-radius: 4px;
+    transition: all 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); background: var(--surface); }
+
+  /* HERO */
+  .hero {
+    min-height: 90vh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 4rem 2rem;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(88,166,255,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem; color: var(--accent2); letter-spacing: 0.15em;
+    text-transform: uppercase; margin-bottom: 1.5rem;
+    border: 1px solid rgba(63,185,80,0.3);
+    padding: 0.3rem 1rem; border-radius: 20px;
+    display: inline-block;
+  }
+  .hero h1 {
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    font-weight: 900; line-height: 1.1;
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 .lang {
+    color: var(--accent);
+    font-family: 'IBM Plex Mono', monospace;
+  }
+  .hero-desc {
+    max-width: 600px; color: var(--text-muted);
+    font-size: 1.1rem; margin-bottom: 3rem;
+  }
+  .hero-stats {
+    display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap;
+  }
+  .stat {
+    text-align: center;
+    padding: 1rem 1.5rem;
+    background: var(--surface);
+    border: 1px solid var(--border); border-radius: 8px;
+  }
+  .stat-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 2rem; font-weight: 600; color: var(--accent);
+    display: block;
+  }
+  .stat-label { font-size: 0.8rem; color: var(--text-muted); }
+
+  /* SECTION */
+  section { padding: 5rem 2rem; max-width: 1100px; margin: 0 auto; }
+
+  .section-header {
+    display: flex; align-items: center; gap: 1rem;
+    margin-bottom: 2.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem; color: var(--accent); background: var(--tag-bg);
+    padding: 0.2rem 0.6rem; border-radius: 4px; white-space: nowrap;
+  }
+  .section-header h2 {
+    font-size: 1.6rem; font-weight: 700;
+  }
+
+  /* CONCEPT CARDS */
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap: 1rem; }
+  .card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; padding: 1.5rem;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .card-icon { font-size: 1.5rem; margin-bottom: 0.75rem; }
+  .card h3 {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.95rem; color: var(--accent); margin-bottom: 0.5rem;
+  }
+  .card p { font-size: 0.9rem; color: var(--text-muted); }
+
+  /* CODE BLOCK */
+  .code-wrap {
+    background: var(--code-bg); border: 1px solid var(--border);
+    border-radius: 10px; overflow: hidden; margin: 1.5rem 0;
+  }
+  .code-header {
+    background: var(--surface); border-bottom: 1px solid var(--border);
+    padding: 0.6rem 1rem;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .code-header .dots { display: flex; gap: 6px; }
+  .dot { width: 12px; height: 12px; border-radius: 50%; }
+  .dot-r { background: #ff5f57; }
+  .dot-y { background: #febc2e; }
+  .dot-g { background: #28c840; }
+  .code-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem; color: var(--text-muted);
+  }
+  .code-body {
+    padding: 1.5rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.82rem; line-height: 1.8;
+    overflow-x: auto;
+    white-space: pre;
+  }
+  /* Syntax highlight classes */
+  .kw { color: #ff7b72; }    /* keywords */
+  .cl { color: #79c0ff; }    /* class names */
+  .fn { color: #d2a8ff; }    /* functions */
+  .str { color: #a5d6ff; }   /* strings */
+  .cm { color: #8b949e; font-style: italic; }  /* comments */
+  .num { color: #f2cc60; }   /* numbers */
+  .op { color: #79c0ff; }    /* operators */
+
+  /* COMPARISON TABLE */
+  .table-wrap { overflow-x: auto; margin: 1.5rem 0; }
+  table {
+    width: 100%; border-collapse: collapse;
+    font-size: 0.88rem;
+  }
+  th {
+    background: var(--surface2); color: var(--accent);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem; padding: 0.8rem 1rem;
+    text-align: right; font-weight: 600;
+    border-bottom: 2px solid var(--accent);
+  }
+  td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-muted);
+  }
+  tr:hover td { background: var(--surface); color: var(--text); }
+  .yes { color: var(--accent2); }
+  .no { color: var(--accent3); }
+
+  /* RULE BOXES */
+  .rules { display: grid; gap: 0.75rem; margin: 1.5rem 0; }
+  .rule {
+    display: flex; gap: 1rem; align-items: flex-start;
+    background: var(--surface); border: 1px solid var(--border);
+    border-right: 3px solid var(--accent4);
+    border-radius: 8px; padding: 1rem 1.2rem;
+  }
+  .rule-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem; color: var(--accent4); white-space: nowrap;
+    margin-top: 2px;
+  }
+  .rule p { font-size: 0.9rem; color: var(--text-muted); }
+  .rule p strong { color: var(--text); }
+
+  /* TABS */
+  .tabs { margin: 1.5rem 0; }
+  .tab-nav { display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
+  .tab-btn {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.78rem; padding: 0.4rem 0.9rem;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 6px; color: var(--text-muted);
+    cursor: pointer; transition: all 0.2s;
+  }
+  .tab-btn.active, .tab-btn:hover {
+    background: var(--accent); color: var(--bg); border-color: var(--accent);
+  }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  /* CONCEPT FLOW */
+  .flow {
+    display: flex; align-items: center; gap: 0.5rem;
+    flex-wrap: wrap; margin: 1.5rem 0;
+  }
+  .flow-item {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 8px; padding: 0.6rem 1rem;
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem;
+  }
+  .flow-item.base { border-color: var(--accent); color: var(--accent); }
+  .flow-item.child { border-color: var(--accent2); color: var(--accent2); }
+  .flow-item.grand { border-color: var(--accent4); color: var(--accent4); }
+  .flow-arrow { color: var(--text-muted); font-size: 1.2rem; }
+
+  /* QUIZ */
+  .quiz-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; padding: 1.5rem; margin: 1rem 0;
+  }
+  .quiz-q { font-weight: 700; margin-bottom: 1rem; color: var(--text); }
+  .quiz-options { display: grid; gap: 0.5rem; }
+  .quiz-opt {
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 6px; padding: 0.7rem 1rem;
+    cursor: pointer; font-size: 0.9rem; color: var(--text-muted);
+    transition: all 0.2s; text-align: right;
+  }
+  .quiz-opt:hover { border-color: var(--accent); color: var(--text); }
+  .quiz-opt.correct { border-color: var(--accent2); color: var(--accent2); background: rgba(63,185,80,0.1); }
+  .quiz-opt.wrong { border-color: var(--accent3); color: var(--accent3); background: rgba(247,129,102,0.1); }
+  .quiz-feedback {
+    margin-top: 0.75rem; font-size: 0.85rem;
+    padding: 0.6rem 1rem; border-radius: 6px;
+    display: none;
+  }
+  .quiz-feedback.show { display: block; }
+  .quiz-feedback.ok { background: rgba(63,185,80,0.1); color: var(--accent2); border: 1px solid var(--accent2); }
+  .quiz-feedback.bad { background: rgba(247,129,102,0.1); color: var(--accent3); border: 1px solid var(--accent3); }
+
+  /* PROGRESS */
+  .progress-bar {
+    height: 4px; background: var(--surface2);
+    border-radius: 2px; margin-top: 0.5rem;
+  }
+  .progress-fill {
+    height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent2));
+    border-radius: 2px; transition: width 0.5s;
+  }
+
+  /* DIVIDER */
+  .divider {
+    border: none; border-top: 1px solid var(--border);
+    max-width: 1100px; margin: 0 auto;
+  }
+
+  /* FOOTER */
+  footer {
+    text-align: center; padding: 3rem 2rem;
+    color: var(--text-muted); font-size: 0.82rem;
+    border-top: 1px solid var(--border);
+  }
+  footer span { color: var(--accent); font-family: 'IBM Plex Mono', monospace; }
+
+  /* BADGE */
+  .badge {
+    display: inline-block; font-size: 0.7rem;
+    font-family: 'IBM Plex Mono', monospace;
+    padding: 0.15rem 0.5rem; border-radius: 4px; margin-right: 0.4rem;
+  }
+  .badge-blue { background: rgba(88,166,255,0.15); color: var(--accent); }
+  .badge-green { background: rgba(63,185,80,0.15); color: var(--accent2); }
+  .badge-red { background: rgba(247,129,102,0.15); color: var(--accent3); }
+  .badge-purple { background: rgba(210,168,255,0.15); color: var(--accent4); }
+
+  /* INFO BOX */
+  .info-box {
+    border: 1px solid var(--border); border-right: 3px solid var(--accent);
+    background: rgba(88,166,255,0.05);
+    border-radius: 8px; padding: 1rem 1.2rem;
+    margin: 1rem 0; font-size: 0.9rem; color: var(--text-muted);
+  }
+  .info-box strong { color: var(--accent); }
+
+  /* TWO COL */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  @media (max-width: 700px) {
+    .two-col { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    .hero h1 { font-size: 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">C# / Inheritance</div>
+  <div class="nav-links">
+    <a href="#lec1">محاضرة 1</a>
+    <a href="#lec2">محاضرة 2</a>
+    <a href="#lec3">محاضرة 3</a>
+    <a href="#lec4">محاضرة 4</a>
+    <a href="#quiz">اختبار</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">برمجة 3 · الفصل الثاني · م. علا الراعي</div>
+  <h1>الوراثة في <span class="lang">C#</span></h1>
+  <p class="hero-desc">
+    من أساسيات الكلاسات والكائنات وصولاً إلى الواجهات والتعددية — كل مفهوم مع أمثلة كود قابلة للدراسة.
+  </p>
+  <div class="hero-stats">
+    <div class="stat"><span class="stat-num">4</span><span class="stat-label">محاضرات</span></div>
+    <div class="stat"><span class="stat-num">12+</span><span class="stat-label">مثال كود</span></div>
+    <div class="stat"><span class="stat-num">5</span><span class="stat-label">مفاهيم أساسية</span></div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ====== LECTURE 1 ====== -->
+<section id="lec1">
+  <div class="section-header">
+    <span class="section-num">محاضرة-01</span>
+    <h2>الوراثة — المفاهيم الأساسية</h2>
+  </div>
+
+  <div class="cards">
+    <div class="card">
+      <div class="card-icon">🏗️</div>
+      <h3>مكونات الكلاس</h3>
+      <p>كل كلاس يتألف من: <strong>fields</strong> (حقول)، <strong>properties</strong> (خصائص)، <strong>methods</strong> (دوال)، <strong>constructors</strong> (بواني).</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🔑</div>
+      <h3>Access Modifiers</h3>
+      <p><code>public</code> للجميع · <code>private</code> داخل الكلاس فقط · <code>protected</code> للكلاس والأبناء · <code>internal</code> داخل المشروع.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🧬</div>
+      <h3>الوراثة Inheritance</h3>
+      <p>كلاس جديد <strong>يرث</strong> الخصائص والدوال من كلاس آخر. يُقلّل التكرار ويُمثّل العلاقات الواقعية.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🔗</div>
+      <h3>الكلمة المحجوزة base</h3>
+      <p>تُستخدم في الكلاس الابن للوصول إلى constructor الأب أو دواله وخصائصه مباشرة.</p>
+    </div>
+  </div>
+
+  <div class="section-header" style="margin-top:3rem">
+    <span class="section-num">مثال</span>
+    <h2>وراثة بسيطة: Parent → Child</h2>
+  </div>
+
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="dots"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div></div>
+      <span class="code-title">BasicInheritance.cs</span>
+    </div>
+    <div class="code-body"><span class="kw">class</span> <span class="cl">Parent</span>
+{
+    <span class="kw">public</span> <span class="kw">string</span> <span class="cl">Name</span> { <span class="kw">get</span>; <span class="kw">set</span>; }
+    <span class="kw">public</span> <span class="kw">int</span> <span class="cl">Age</span>  { <span class="kw">get</span>; <span class="kw">set</span>; }
+
+    <span class="kw">public</span> <span class="fn">Parent</span>(<span class="kw">string</span> fName, <span class="kw">int</span> age)
+    {
+        Name = fName;
+        Age  = age;
+    }
+}
+
+<span class="kw">class</span> <span class="cl">Child</span> : <span class="cl">Parent</span>
+{
+    <span class="kw">public</span> <span class="kw">int</span> UniversityID { <span class="kw">get</span>; <span class="kw">set</span>; }
+
+    <span class="cm">// استدعاء constructor الأب عبر base</span>
+    <span class="kw">public</span> <span class="fn">Child</span>(<span class="kw">string</span> fName, <span class="kw">int</span> age, <span class="kw">int</span> uid)
+        : <span class="kw">base</span>(fName, age)
+    {
+        UniversityID = uid;
+    }
+
+    <span class="kw">public</span> <span class="kw">void</span> <span class="fn">PrintInfo</span>()
+    {
+        Console.<span class="fn">WriteLine</span>(<span class="str">"Name: "</span> + Name);
+        Console.<span class="fn">WriteLine</span>(<span class="str">"Age: "</span>  + Age);
+        Console.<span class="fn">WriteLine</span>(<span class="str">"UID: "</span>  + UniversityID);
+    }
+}
+
+<span class="cm">// في Main:</span>
+<span class="cl">Child</span> student = <span class="kw">new</span> <span class="fn">Child</span>(<span class="str">"Ali"</span>, <span class="num">20</span>, <span class="num">12345</span>);
+student.<span class="fn">PrintInfo</span>();</div>
+  </div>
+
+  <div class="info-box">
+    <strong>لماذا نستخدم Inheritance؟</strong><br>
+    إعادة استخدام الكود · تقليل التكرار · تمثيل العلاقات الواقعية · تنظيم البرنامج
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ====== LECTURE 2 ====== -->
+<section id="lec2">
+  <div class="section-header">
+    <span class="section-num">محاضرة-02</span>
+    <h2>Virtual & Override والتعددية</h2>
+  </div>
+
+  <div class="cards">
+    <div class="card">
+      <div class="card-icon">🔓</div>
+      <h3>virtual</h3>
+      <p>تكتب في الأب لتقول: <em>"يمكن لأي وريث تعديل هذه الدالة."</em> — الدالة لها تنفيذ افتراضي لكنه قابل للتغيير.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">✏️</div>
+      <h3>override</h3>
+      <p>تكتب في الابن لتعيد تعريف دالة <code>virtual</code> من الأب. <strong>لا يمكن استخدامها بدون virtual في الأب.</strong></p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🎭</div>
+      <h3>Polymorphism</h3>
+      <p>نفس المتغير · نفس الدالة · لكن النتيجة تختلف حسب نوع الكائن الحقيقي أثناء التنفيذ.</p>
+    </div>
+  </div>
+
+  <div class="section-header" style="margin-top:2.5rem">
+    <span class="section-num">شروط</span>
+    <h2>شروط Polymorphism</h2>
+  </div>
+  <div class="rules">
+    <div class="rule"><spanclass="rule-num">01</span><p>وجود <strong>وراثة</strong> بين الكلاسات</p></div>
+    <div class="rule"><span class="rule-num">02</span><p>استخدام <strong>virtual</strong> في الأب</p></div>
+    <div class="rule"><span class="rule-num">03</span><p>استخدام <strong>override</strong> في الابن</p></div>
+  </div>
+
+  <div class="section-header" style="margin-top:2.5rem">
+    <span class="section-num">مثال</span>
+    <h2>Animal → Dog / Cat</h2>
+  </div>
+
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="dots"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div></div>
+      <span class="code-title">Polymorphism.cs</span>
+    </div>
+    <div class="code-body"><span class="kw">class</span> <span class="cl">Animal</span>
+{
+    <span class="kw">public</span> <span class="kw">virtual</span> <span class="kw">void</span> <span class="fn">MakeSound</span>()
+    {
+        Console.<span class="fn">WriteLine</span>(<span class="str">"Animal Sound"</span>);
+    }
+}
+
+<span class="kw">class</span> <span class="cl">Dog</span> : <span class="cl">Animal</span>
+{
+    <span class="kw">public</span> <span class="kw">override</span> <span class="kw">void</span> <span class="fn">MakeSound</span>()
+        => Console.<span class="fn">WriteLine</span>(<span class="str">"Bark"</span>);
+}
+
+<span class="kw">class</span> <span class="cl">Cat</span> : <span class="cl">Animal</span>
+{
+    <span class="kw">public</span> <span class="kw">override</span> <span class="kw">void</span> <span class="fn">MakeSound</span>()
+        => Console.<span class="fn">WriteLine</span>(<span class="str">"Meow"</span>);
+}
+
+<span class="cm">// في Main — نفس المتغير، نتيجة مختلفة:</span>
+<span class="cl">Animal</span> a = <span class="kw">new</span> <span class="cl">Dog</span>();
+a.<span class="fn">MakeSound</span>(); <span class="cm">// Bark</span>
+
+a = <span class="kw">new</span> <span class="cl">Cat</span>();
+a.<span class="fn">MakeSound</span>(); <span class="cm">// Meow</span></div>
+  </div>
+
+  <div class="section-header" style="margin-top:2.5rem">
+    <span class="section-num">مفهوم</span>
+    <h2>سلسلة الوراثة — Inheritance Chain</h2>
+  </div>
+
+  <div class="flow">
+    <div class="flow-item base">Grandfather (virtual)</div>
+    <div class="flow-arrow">←</div>
+    <div class="flow-item child">Father (override)</div>
+    <div class="flow-arrow">←</div>
+    <div class="flow-item grand">Son (override مرة أخرى)</div>
+  </div>
+
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="dots"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div></div>
+      <span class="code-title">InheritanceChain.cs</span>
+    </div>
+    <div class="code-body"><span class="kw">class</span> <span class="cl">Grandfather</span>
+{
+    <span class="kw">public</span> <span class="kw">virtual</span> <span class="kw">void</span> <span class="fn">Greet</span>()
+        => Console.<span class="fn">WriteLine</span>(<span class="str">"سلام من الجد"</span>);
+}
+<span class="kw">class</span> <span class="cl">Father</span> : <span class="cl">Grandfather</span>
+{
+    <span class="kw">public</span> <span class="kw">override</span> <span class="kw">void</span> <span class="fn">Greet</span>()
+        => Console.<span class="fn">WriteLine</span>(<span class="str">"سلام من الأب"</span>);
+}
+<span class="kw">class</span> <span class="cl">Son</span> : <span class="cl">Father</span>
+{
+    <span class="kw">public</span> <span class="kw">override</span> <span class="kw">void</span> <span class="fn">Greet</span>() <span class="cm">// يمكن override مرة أخرى</span>
+        => Console.<span class="fn">WriteLine</span>(<span class="str">"سلام من الابن"</span>);
+}
+
+<span class="cm">// Polymorphism — يُنفَّذ نسخة الابن دائماً:</span>
+<span class="cl">Grandfather</span> f = <span class="kw">new</span> <span class="cl">Father</span>(); f.<span class="fn">Greet</span>(); <span class="cm">// سلام من الأب</span>
+<span class="cl">Grandfather</span> s = <span class="kw">new</span> <span class="cl">Son</span>();    s.<span class="fn">Greet</span>(); <span class="cm">// سلام من الابن</span></div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ====== LECTURE 3 ====== -->
+<section id="lec3">
+  <div class="section-header">
+    <span class="section-num">محاضرة-03</span>
+    <h2>abstract — الكلاس المجرد والدالة المجردة</h2>
+  </div>
+
+  <div class="cards">
+    <div class="card">
+      <div class="card-icon">🚫</div>
+      <h3>لا object من abstract</h3>
+      <p>لا يمكن إنشاء كائن مباشر من كلاس <code>abstract</code>. يُستخدم فقط كقالب للكلاسات الأبناء.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">📋</div>
+      <h3>دوال عادية + مجردة</h3>
+      <p>يمكن أن يحتوي على دوال عادية (لها جسم) ودوال مجردة (بدون جسم <code>{}</code>).</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">⚡</div>
+      <h3>إجبار التنفيذ</h3>
+      <p>أي كلاس يرث من <code>abstract</code> يجب أن يطبّق جميع الدوال المجردة أو يكون هو أيضاً <code>abstract</code>.</p>
+    </div>
+  </div>
+
+  <div class="section-header" style="margin-top:2.5rem">
+    <span class="section-num">قواعد</span>
+    <h2>قواعد الدالة المجردة</h2>
+  </div>
+  <div class="rules">
+    <div class="rule"><span class="rule-num">01</span><p>لا يوجد جسم للدالة <strong><code>{}</code></strong></p></div>
+    <div class="rule"><span class="rule-num">02</span><p>تُجبر الكلاسات الأبناء على تنفيذها بالكلمة <strong>override</strong></p></div>
+    <div class="rule"><span class="rule-num">03</span><p>تُكتب داخل كلاس <strong>abstract</strong> فقط</p></div>
+  </div>
+
+  <div class="section-header" style="margin-top:2.5rem">
+    <span class="section-num">أمثلة</span>
+    <h2>أمثلة متعددة</h2>
+  </div>
+
+  <div class="tabs">
+    <div class="tab-nav">
+      <button class="tab-btn active" onclick="switchTab(this,'t3-1')">Shape / Square / Cube</button>
+      <button class="tab-btn" onclick="switchTab(this,'t3-2')">BankAccount</button>
+      <button class="tab-btn" onclick="switchTab(this,'t3-3')">Vehicle</button>
+    </div>
+
+    <div id="t3-1" class="tab-panel active">
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="dots"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div></div>
+          <span class="code-title">Shape.cs</span>
+        </div>
+        <div class="code-body"><span class="kw">abstract class</span> <span class="cl">Shape</span>
+{
+    <span class="kw">public abstract double</span> <span class="fn">CalculateArea</span>(); <span class="cm">// مجردة — بدون جسم</span>
+}
+
+<span class="kw">class</span> <span class="cl">Square</span> : <span class="cl">Shape</span>
+{
+    <span class="kw">public double</span> Side { <span class="kw">get</span>; <span class="kw">set</span>; }
+
+    <span class="kw">public</span> <span class="fn">Square</span>(<span class="kw">double</span> side) { Side = side; }
+
+    <span class="kw">public override double</span> <span class="fn">CalculateArea</span>()
+        => Side * Side; <span class="cm">// مساحة المربع</span>
+}
+
+<span class="kw">class</span> <span class="cl">Cube</span> : <span class="cl">Square</span>
+{
+    <span class="kw">public</span> <span class="fn">Cube</span>(<span class="kw">double</span> side) : <span class="kw">base</span>(side) { }
+
+    <span class="kw">public override double</span> <span class="fn">CalculateArea</span>()
+        => <span class="num">6</span> * <span class="kw">base</span>.<span class="fn">CalculateArea</span>(); <span class="cm">// المساحة الكلية للمكعب</span>
+}
+
+<span class="cm">// Main:</span>
+<span class="kw">double</span> x = Convert.<span class="fn">ToDouble</span>(Console.<span class="fn">ReadLine</span>());
+<span class="cl">Shape</span> s1 = <span class="kw">new</span> <span class="cl">Square</span>(x);
+<span class="cl">Shape</span> c2 = <span class="kw">new</span> <span class="cl">Cube</span>(x);
+Console.<span class="fn">WriteLine</span>(<span class="str">"Square Area: "</span>       + s1.<span class="fn">CalculateArea</span>());
+Console.<span class="fn">WriteLine</span>(<span class="str">"Cube Surface Area: "</span> + c2.<span class="fn">CalculateArea</span>());</div>
+      </div>
+    </div>
+
+    <div id="t3-2" class="tab-panel">
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="dots"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div></div>
+          <span class="code-title">BankAccount.cs</span>
+        </div>
+        <div class="code-body"><span class="kw">abstract class</span> <span class="cl">BankAccount</span>
+{
+    <span class="kw">public string</span> OwnerName { <span class="kw">get</span>; <span class="kw">set</span>; }
+    <span class="kw">public double</span> Account   { <span class="kw">get</span>; <span class="kw">set</span>; }
+
+    <span class="kw">public</span> <span class="fn">BankAccount</span>(<span class="kw">string</span> name, <span class="kw">double</span> account)
+    {
+        OwnerName = name;
+        Account   = account;
+    }
+
+    <span class="kw">public abstract double</span> <span class="fn">CalculateInterest</span>(); <span class="cm">// دالة مجردة</span>
+}
+
+<span class="kw">class</span> <span class="cl">SavingAccount</span> : <span class="cl">BankAccount</span> <span class="cm">// حساب توفير</span>
+{
+    <span class="kw">public</span> <span class="fn">SavingAccount</span>(<span class="kw">string</span> name, <span class="kw">double</span> balance)
+        : <span class="kw">base</span>(name, balance) { }
+
+    <span class="kw">public override double</span> <span class="fn">CalculateInterest</span>()
+        => Account * <span class="num">0.05</span>; <span class="cm">// 5%</span>
+}
+
+<span class="kw">class</span> <span class="cl">CurrentAccount</span> : <span class="cl">BankAccount</span> <span class="cm">// حساب جاري</span>
+{
+    <span class="kw">public</span> <span class="fn">CurrentAccount</span>(<span class="kw">string</span> name, <span class="kw">double</span> balance)
+        : <span class="kw">base</span>(name, balance) { }
+
+    <span class="kw">public override double</span> <span class="fn">CalculateInterest</span>()
+        => Account * <span class="num">0.02</span>; <span class="cm">// 2%</span>
+}
+
+<span class="cm">// Main:</span>
+<span class="cl">BankAccount</span> acc1 = <span class="kw">new</span> <span class="cl">SavingAccount</span>(<span class="str">"Ali"</span>, <span class="num">10000</span>);
+<span class="cl">BankAccount</span> acc2 = <span class="kw">new</span> <span class="cl">CurrentAccount</span>(<span class="str">"Sara"</span>, <span class="num">10000</span>);
+Console.<span class="fn">WriteLine</span>(<span class="str">"Saving Interest: "</span>  + acc1.<span class="fn">CalculateInterest</span>());
+Console.<span class="fn">WriteLine</span>(<span class="str">"Current Interest: "</span> + acc2.<span class="fn">CalculateInterest</span>());</div>
+      </div>
+    </div>
+
+    <div id="t3-3" class="tab-panel">
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="dots"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div></div>
+          <span class="code-title">Vehicle.cs</span>
+        </div>
+        <div class="code-body"><span class="kw">abstract class</span> <span class="cl">Vehicle</span>
+{
+    <span class="kw">public string</span> VehicleName { <span class="kw">get</span>; <span class="kw">set</span>; }
+
+    <span class="kw">public void</span> <span class="fn">Print</span>()
+        => Console.<span class="fn">WriteLine</span>(<span class="str">$"المركبة: {VehicleName}  السرعة: {CalculateSpeed()}"</span>);
+
+    <span class="kw">public abstract double</span> <span class="fn">CalculateSpeed</span>(); <span class="cm">// السرعة = المسافة ÷ الزمن</span>
+}
+
+<span class="kw">class</span> <span class="cl">Car</span> : <span class="cl">Vehicle</span>
+{
+    <span class="kw">public double</span> Distance { <span class="kw">get</span>; <span class="kw">set</span>; }
+    <span class="kw">public double</span> Time     { <span class="kw">get</span>; <span class="kw">set</span>; }
+
+    <span class="kw">public</span> <span class="fn">Car</span>(<span class="kw">string</span> name, <span class="kw">double</span> d, <span class="kw">double</span> t)
+    {
+        VehicleName = name; Distance = d; Time = t;
+    }
+
+    <span class="kw">public override double</span> <span class="fn">CalculateSpeed</span>()
+        => Distance / Time;
+}
+
+<span class="cm">// Main:</span>
+<span class="cl">Vehicle</span> v = <span class="kw">new</span> <span class="cl">Car</span>(<span class="str">"Toyota"</span>, <span class="num">300</span>, <span class="num">3</span>);
+v.<span class="fn">Print</span>(); <span class="cm">// المركبة: Toyota  السرعة: 100</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ====== LECTURE 4 ====== -->
+<section id="lec4">
+  <div class="section-header">
+    <span class="section-num">محاضرة-04</span>
+    <h2>Interface — الواجهة</h2>
+  </div>
+
+  <div class="info-box">
+    <strong>Interface</strong> هو عقد (Contract) يحدد ما يجب أن يحتويه الكلاس من دوال وخصائص — <strong>بدون</strong> كتابة التنفيذ. كل الدوال فيه مجردة تلقائياً.
+  </div>
+
+  <div class="cards">
+    <div class="card">
+      <div class="card-icon">📝</div>
+      <h3>لا متغيرات / لا بواني</h3>
+      <p>الواجهة لا تحتوي fields عادية ولا constructors — فقط دوال وخصائص.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🔡</div>
+      <h3>الاسم يبدأ بـ I</h3>
+      <p>بالاتفاقية يبدأ اسم الواجهة بحرف <code>I</code> — مثل <code>IEmployee</code>, <code>IShape</code>.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🔀</div>
+      <h3>تعدد الواجهات</h3>
+      <p>كلاس واحد يمكنه تطبيق <strong>أكثر من واجهة</strong> — الحل البديل لتعدد الوراثة المحظور في C#.</p>
+    </div>
+  </div>
+
+  <div class="section-header" style="margin-top:2.5rem">
+    <span class="section-num">مقارنة</span>
+    <h2>Interface vs Abstract Class</h2>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <tr>
+        <th>العنصر</th>
+        <th>Abstract Class</th>
+        <th>Interface</th>
+      </tr>
+      <tr><td>الكلمة المفتاحية</td><td><code>abstract</code></td><td><code>interface</code></td></tr>
+      <tr><td>التعريف</td><td>كلاس يحتوي دوالاً عادية ومجردة</td><td>عقد يحدد الشكل فقط</td></tr>
+      <tr><td>دوال abstract</td><td class="yes">✅ نعم</td><td class="yes">✅ ضمنياً</td></tr>
+      <tr><td>حقول Fields</td><td class="yes">✅ نعم</td><td class="no">❌ لا</td></tr>
+      <tr><td>خصائص Properties</td><td class="yes">✅ نعم</td><td class="yes">✅ نعم</td></tr>
+      <tr><td>Constructor</td><td class="yes">✅ نعم</td><td class="no">❌ لا</td></tr>
+      <tr><td>الوراثة</td><td>class واحد فقط</td><td>تعدد الواجهات ممكن</td></tr>
+    </table>
+  </div>
+
+  <div class="section-header" style="margin-top:2.5rem">
+    <span class="section-num">أمثلة</span>
+    <h2>أمثلة متعددة</h2>
+  </div>
+
+  <div class="tabs">
+    <div class="tab-nav">
+      <button class="tab-btn active" onclick="switchTab(this,'t4-1')">IShape</button>
+      <button class="tab-btn" onclick="switchTab(this,'t4-2')">IEmployee</button>
+      <button class="tab-btn" onclick="switchTab(this,'t4-3')">ISpeed + Abstract</button>
+      <button class="tab-btn" onclick="switchTab(this,'t4-4')">IEmp + Abstract + List</button>
+    </div>
+
+    <div id="t4-1" class="tab-panel active">
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="dots"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div></div>
+          <span class="code-title">IShape.cs</span>
+        </div>
+        <div class="code-body"><span class="kw">interface</span> <span class="cl">IShape</span>
+{
+    <span class="kw">double</span> <span class="fn">CalculateArea</span>(); <span class="cm">// مجردة تلقائياً</span>
+}
+
+<span class="kw">class</span> <span class="cl">Rectangle</span> : <span class="cl">IShape</span>
+{
+    <span class="kw">public double</span> Length { <span class="kw">get</span>; <span class="kw">set</span>; }
+    <span class="kw">public double</span> Width  { <span class="kw">get</span>; <span class="kw">set</span>; }
+
+    <span class="kw">public</span> <span class="fn">Rectangle</span>(<span class="kw">double</span> l, <spanclass="kw">double</span> w) { Length=l; Width=w; }
+
+    <span class="kw">public double</span> <span class="fn">CalculateArea</span>() => Length * Width;
+}
+
+<span class="kw">class</span> <span class="cl">Circle</span> : <span class="cl">IShape</span>
+{
+    <span class="kw">public double</span> Radius { <span class="kw">get</span>; <span class="kw">set</span>; }
+
+    <span class="kw">public</span> <span class="fn">Circle</span>(<span class="kw">double</span> r) { Radius = r; }
+
+    <span class="kw">public double</span> <span class="fn">CalculateArea</span>() => Math.PI * Radius * Radius;
+}
+
+<span class="cm">// Main:</span>
+<span class="cl">IShape</span> s1 = <span class="kw">new</span> <span class="cl">Rectangle</span>(<span class="num">5</span>, <span class="num">4</span>);
+<span class="cl">IShape</span> s2 = <span class="kw">new</span> <span class="cl">Circle</span>(<span class="num">3</span>);
+Console.<span class="fn">WriteLine</span>(<span class="str">"Rectangle: "</span> + s1.<span class="fn">CalculateArea</span>());
+Console.<span class="fn">WriteLine</span>(<span class="str">"Circle: "</span>    + s2.<span class="fn">CalculateArea</span>());</div>
+      </div>
+    </div>
+
+    <div id="t4-2" class="tab-panel">
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="dots"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div></div>
+          <span class="code-title">IEmployee.cs</span>
+        </div>
+        <div class="code-body"><span class="kw">interface</span> <span class="cl">IEmployee</span>
+{
+    <span class="kw">string</span> Name   { <span class="kw">get</span>; <span class="kw">set</span>; }
+    <span class="kw">double</span> Salary { <span class="kw">get</span>; <span class="kw">set</span>; }
+    <span class="kw">double</span> <span class="fn">CalculateBonus</span>();
+}
+
+<span class="kw">class</span> <span class="cl">Manager</span> : <span class="cl">IEmployee</span>
+{
+    <span class="kw">public string</span> Name   { <span class="kw">get</span>; <span class="kw">set</span>; }
+    <span class="kw">public double</span> Salary { <span class="kw">get</span>; <span class="kw">set</span>; }
+
+    <span class="kw">public</span> <span class="fn">Manager</span>(<span class="kw">string</span> n, <span class="kw">double</span> s) { Name=n; Salary=s; }
+
+    <span class="kw">public double</span> <span class="fn">CalculateBonus</span>() => Salary * <span class="num">0.20</span>; <span class="cm">// 20%</span>
+}
+
+<span class="kw">class</span> <span class="cl">Teacher</span> : <span class="cl">IEmployee</span>
+{
+    <span class="kw">public string</span> Name   { <span class="kw">get</span>; <span class="kw">set</span>; }
+    <span class="kw">public double</span> Salary { <span class="kw">get</span>; <span class="kw">set</span>; }
+
+    <span class="kw">public</span> <span class="fn">Teacher</span>(<span class="kw">string</span> n, <span class="kw">double</span> s) { Name=n; Salary=s; }
+
+    <span class="kw">public double</span> <span class="fn">CalculateBonus</span>() => Salary * <span class="num">0.10</span>; <span class="cm">// 10%</span>
+}
+
+<span class="cm">// Main — List من نوع IEmployee:</span>
+List&lt;<span class="cl">IEmployee</span>&gt; employees = <span class="kw">new</span> List&lt;<span class="cl">IEmployee</span>&gt;();
+employees.<span class="fn">Add</span>(<span class="kw">new</span> <span class="cl">Manager</span>(<span class="str">"Sara"</span>, <span class="num">2000</span>));
+employees.<span class="fn">Add</span>(<span class="kw">new</span> <span class="cl">Teacher</span>(<span class="str">"Ali"</span>,  <span class="num">3000</span>));
+
+<span class="kw">foreach</span> (<span class="kw">var</span> emp <span class="kw">in</span> employees)
+    Console.<span class="fn">WriteLine</span>(<span class="str">$"Name:{emp.Name}  Salary:{emp.Salary}  Bonus:{emp.CalculateBonus()}"</span>);</div>
+      </div>
+    </div>
+
+    <div id="t4-3" class="tab-panel">
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="dots"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div></div>
+          <span class="code-title">ISpeed_Vehicle.cs</span>
+        </div>
+        <div class="code-body"><span class="kw">interface</span> <span class="cl">ISpeed</span>
+{
+    <span class="kw">double</span> <span class="fn">CalculateSpeed</span>(); <span class="cm">// واجهة تفرض وجود الدالة</span>
+}
+
+<span class="kw">abstract class</span> <span class="cl">Vehicle</span>
+{
+    <span class="kw">public double</span> Distance { <span class="kw">get</span>; <span class="kw">set</span>; }
+    <span class="kw">public double</span> Time     { <span class="kw">get</span>; <span class="kw">set</span>; }
+
+    <span class="kw">public</span> <span class="fn">Vehicle</span>(<span class="kw">double</span> d, <span class="kw">double</span> t) { Distance=d; Time=t; }
+}
+
+<span class="kw">class</span> <span class="cl">Car</span> : <span class="cl">Vehicle</span>, <span class="cl">ISpeed</span> <span class="cm">// وراثة + واجهة</span>
+{
+    <span class="kw">public</span> <span class="fn">Car</span>(<span class="kw">double</span> d, <span class="kw">double</span> t) : <span class="kw">base</span>(d,t) { }
+    <span class="kw">public double</span> <span class="fn">CalculateSpeed</span>() => Distance / Time;
+}
+
+<span class="kw">class</span> <span class="cl">Bike</span> : <span class="cl">Vehicle</span>, <span class="cl">ISpeed</span>
+{
+    <span class="kw">public</span> <span class="fn">Bike</span>(<span class="kw">double</span> d, <span class="kw">double</span> t) : <span class="kw">base</span>(d,t) { }
+    <span class="kw">public double</span> <span class="fn">CalculateSpeed</span>() => Distance / Time;
+}
+
+<span class="cm">// Main:</span>
+<span class="cl">Car</span>  car  = <span class="kw">new</span> <span class="cl">Car</span>(<span class="num">200</span>, <span class="num">2</span>);
+<span class="cl">Bike</span> bike = <span class="kw">new</span> <span class="cl">Bike</span>(<span class="num">50</span>, <span class="num">1</span>);
+Console.<span class="fn">WriteLine</span>(<span class="str">"Car Speed: "</span>  + car.<span class="fn">CalculateSpeed</span>());
+Console.<span class="fn">WriteLine</span>(<span class="str">"Bike Speed: "</span> + bike.<span class="fn">CalculateSpeed</span>());</div>
+      </div>
+    </div>
+
+    <div id="t4-4" class="tab-panel">
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="dots"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div></div>
+          <span class="code-title">IEmp_AbstractEmployee.cs</span>
+        </div>
+        <div class="code-body"><span class="kw">interface</span> <span class="cl">IEmp</span> { <span class="kw">double</span> <span class="fn">CalculateTax</span>(); }
+
+<span class="kw">abstract class</span> <span class="cl">Employee</span> : <span class="cl">IEmp</span>
+{
+    <span class="kw">public string</span> Name   { <span class="kw">get</span>; <span class="kw">set</span>; }
+    <span class="kw">public double</span> Salary { <span class="kw">get</span>; <span class="kw">set</span>; }
+
+    <span class="kw">public</span> <span class="fn">Employee</span>(<span class="kw">string</span> n, <span class="kw">double</span> s) { Name=n; Salary=s; }
+
+    <span class="kw">public void</span> <span class="fn">PrintInfo</span>()
+        => Console.<span class="fn">WriteLine</span>(<span class="str">$"Name:{Name}  Salary:{Salary}  Tax:{CalculateTax()}"</span>);
+
+    <span class="kw">public abstract double</span> <span class="fn">CalculateTax</span>(); <span class="cm">// تنفيذ الواجهة بشكل مجرد</span>
+}
+
+<span class="kw">class</span> <span class="cl">Manager</span> : <span class="cl">Employee</span>
+{
+    <span class="kw">public</span> <span class="fn">Manager</span>(<span class="kw">string</span> n, <span class="kw">double</span> s) : <span class="kw">base</span>(n,s) { }
+    <span class="kw">public override double</span> <span class="fn">CalculateTax</span>() => Salary * <span class="num">0.05</span>; <span class="cm">// 5%</span>
+}
+
+<span class="kw">class</span> <span class="cl">Teacher</span> : <span class="cl">Employee</span>
+{
+    <span class="kw">public</span> <span class="fn">Teacher</span>(<span class="kw">string</span> n, <span class="kw">double</span> s) : <span class="kw">base</span>(n,s) { }
+    <span class="kw">public override double</span> <span class="fn">CalculateTax</span>() => Salary * <span class="num">0.04</span>; <span class="cm">// 4%</span>
+}
+
+<span class="cm">// Main — List من نوع Employee:</span>
+List&lt;<span class="cl">Employee</span>&gt; emps = <span class="kw">new</span> List&lt;<span class="cl">Employee</span>&gt;();
+emps.<span class="fn">Add</span>(<span class="kw">new</span> <span class="cl">Manager</span>(<span class="str">"Ali"</span>,  <span class="num">5000</span>));
+emps.<span class="fn">Add</span>(<span class="kw">new</span> <span class="cl">Teacher</span>(<span class="str">"Sara"</span>, <span class="num">4000</span>));
+
+<span class="kw">foreach</span> (<span class="kw">var</span> e <span class="kw">in</span> emps) e.<span class="fn">PrintInfo</span>();</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ====== QUIZ ====== -->
+<section id="quiz">
+  <div class="section-header">
+    <span class="section-num">اختبار</span>
+    <h2>اختبر فهمك</h2>
+  </div>
+
+  <div id="quiz-container"></div>
+  <div style="margin-top:1.5rem">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem">
+      <span style="font-size:0.85rem; color:var(--text-muted)">التقدم</span>
+      <span id="score-display" style="font-family:'IBM Plex Mono',monospace; font-size:0.85rem; color:var(--accent)">0 / 0</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+  </div>
+</section>
+
+<footer>
+  <p>برمجة 3 · الفصل الثاني · م. <span>عال راعي</span> · قسم الحواسيب</p>
+  <h2>Concept and Design by Hamza Omar</h2>
+</footer>
+
+<script>
+// ====== TABS ======
+function switchTab(btn, id) {
+  const parent = btn.closest('.tabs');
+  parent.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  parent.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById(id).classList.add('active');
+}
+
+// ====== QUIZ ======
+const questions = [
+  {
+    q: "ما هو الهدف من الكلمة المحجوزة virtual؟",
+    opts: ["إخفاء الدالة عن الابن","السماح بإعادة تعريف الدالة في الابن","منع الوراثة","إنشاء كائن جديد"],
+    ans: 1,
+    explain: "virtual تُعطي إذناً للكلاس الابن بتعديل الدالة عبر override."
+  },
+  {
+    q: "ما الفرق الأساسي بين abstract class و interface؟",
+    opts: [
+      "abstract لا يمكنه احتواء دوال عادية",
+      "interface يمكنه احتواء fields (متغيرات)",
+      "abstract يمكنه احتواء دوال عادية ومجردة، بينما interface للشكل فقط",
+      "لا فرق بينهما"
+    ],
+    ans: 2,
+    explain: "abstract يجمع الدوال العادية والمجردة. interface عقد يحدد الشكل فقط بدون تنفيذ."
+  },
+  {
+    q: "هل يمكن إنشاء كائن (object) مباشرة من abstract class؟",
+    opts: ["نعم دائماً","نعم بشرط","لا أبداً","يعتمد على اللغة"],
+    ans: 2,
+    explain: "لا يمكن إنشاء object من abstract class أبداً — فقط من الكلاسات المشتقة."
+  },
+  {
+    q: "كم عدد الواجهات (interfaces) التي يمكن للكلاس تطبيقها في C#؟",
+    opts: ["واحدة فقط","اثنتان كحد أقصى","لا حد — يمكن تطبيق أكثر من واجهة","ثلاث كحد أقصى"],
+    ans: 2,
+    explain: "C# تدعم تعدد الواجهات — الكلاس يطبق عدة interfaces في آن واحد."
+  },
+  {
+    q: "ما شروط Polymorphism الثلاثة؟",
+    opts: [
+      "وراثة + abstract + interface",
+      "وراثة + virtual + override",
+      "وراثة + base + new",
+      "virtual + abstract + sealed"
+    ],
+    ans: 1,
+    explain: "الشروط: (1) وجود وراثة، (2) virtual في الأب، (3) override في الابن."
+  },
+  {
+    q: "ما اصطلاح تسمية الواجهات في C#؟",
+    opts: ["تبدأ بـ A","تبدأ بـ I","تبدأ بـ Base","لا اصطلاح محدد"],
+    ans: 1,
+    explain: "بالاتفاقية، أسماء الواجهات تبدأ بحرف I — مثل IShape، IEmployee."
+  }
+];
+
+let answers = new Array(questions.length).fill(null);
+let correctCount = 0;
+
+function renderQuiz() {
+  const c = document.getElementById('quiz-container');
+  c.innerHTML = questions.map((q, i) => `
+    <div class="quiz-card" id="qcard-${i}">
+      <div class="quiz-q">${i+1}. ${q.q}</div>
+      <div class="quiz-options">
+        ${q.opts.map((o,j) => `
+          <div class="quiz-opt" id="opt-${i}-${j}" onclick="answer(${i},${j})">${o}</div>
+        `).join('')}
+      </div>
+      <div class="quiz-feedback" id="fb-${i}"></div>
+    </div>
+  `).join('');
+}
+
+function answer(qi, oi) {
+  if (answers[qi] !== null) return; // already answered
+  answers[qi] = oi;
+  const q = questions[qi];
+  const fb = document.getElementById(`fb-${qi}`);
+  // mark options
+  for (let j=0; j<q.opts.length; j++) {
+    const el = document.getElementById(`opt-${qi}-${j}`);
+    if (j === q.ans) el.classList.add('correct');
+    else if (j === oi && oi !== q.ans) el.classList.add('wrong');
+  }
+  if (oi === q.ans) {
+    fb.className = 'quiz-feedback show ok';
+    fb.textContent = '✓ صحيح — ' + q.explain;
+    correctCount++;
+  } else {
+    fb.className = 'quiz-feedback show bad';
+    fb.textContent = '✗ خطأ — ' + q.explain;
+  }
+  updateScore();
+}
+
+function updateScore() {
+  const answered = answers.filter(a => a !== null).length;
+  document.getElementById('score-display').textContent = correctCount + ' / ' + answered;
+  document.getElementById('progress-fill').style.width = (answered / questions.length * 100) + '%';
+}
+
+renderQuiz();
+</script>
+</body>
+</html>
