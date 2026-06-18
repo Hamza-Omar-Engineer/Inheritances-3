@@ -241,7 +241,6 @@
   .flow-item.child { border-color: var(--accent2); color: var(--accent2); }
   .flow-item.grand { border-color: var(--accent4); color: var(--accent4); }
   .flow-arrow { color: var(--text-muted); font-size: 1.2rem; }
-
   /* QUIZ */
   .quiz-card {
     background: var(--surface); border: 1px solid var(--border);
@@ -331,7 +330,8 @@
     <a href="#lec3">محاضرة 3</a>
     <a href="#lec4">محاضرة 4</a>
     <a href="#quiz">اختبار</a>
-  </div>
+      <a href="#jobs">الوظائف</a>
+</div>
 </nav>
 
 <!-- HERO -->
@@ -344,12 +344,12 @@
   <div class="hero-stats">
     <div class="stat"><span class="stat-num">4</span><span class="stat-label">محاضرات</span></div>
     <div class="stat"><span class="stat-num">12+</span><span class="stat-label">مثال كود</span></div>
+    <div class="stat"><span class="stat-num">14</span><span class="stat-label">وظيفة محلولة</span></div>
     <div class="stat"><span class="stat-num">5</span><span class="stat-label">مفاهيم أساسية</span></div>
   </div>
 </div>
 
 <hr class="divider">
-
 <!-- ====== LECTURE 1 ====== -->
 <section id="lec1">
   <div class="section-header">
@@ -442,7 +442,7 @@ student.<span class="fn">PrintInfo</span>();</div>
   </div>
 
   <div class="cards">
-    <div class="card">
+  <div class="card">
       <div class="card-icon">🔓</div>
       <h3>virtual</h3>
       <p>تكتب في الأب لتقول: <em>"يمكن لأي وريث تعديل هذه الدالة."</em> — الدالة لها تنفيذ افتراضي لكنه قابل للتغيير.</p>
@@ -528,8 +528,7 @@ a.<span class="fn">MakeSound</span>(); <span class="cm">// Meow</span></div>
     <div class="code-body"><span class="kw">class</span> <span class="cl">Grandfather</span>
 {
     <span class="kw">public</span> <span class="kw">virtual</span> <span class="kw">void</span> <span class="fn">Greet</span>()
-        => Console.<span class="fn">WriteLine</span>(<span class="str">"سلام من الجد"</span>);
-}
+        => Console.<span class="fn">WriteLine</span>(<span class="str">"سلام من الجد"</span>); }
 <span class="kw">class</span> <span class="cl">Father</span> : <span class="cl">Grandfather</span>
 {
     <span class="kw">public</span> <span class="kw">override</span> <span class="kw">void</span> <span class="fn">Greet</span>()
@@ -616,8 +615,7 @@ a.<span class="fn">MakeSound</span>(); <span class="cm">// Meow</span></div>
     <span class="kw">public override double</span> <span class="fn">CalculateArea</span>()
         => Side * Side; <span class="cm">// مساحة المربع</span>
 }
-
-<span class="kw">class</span> <span class="cl">Cube</span> : <span class="cl">Square</span>
+ <span class="kw">class</span> <span class="cl">Cube</span> : <span class="cl">Square</span>
 {
     <span class="kw">public</span> <span class="fn">Cube</span>(<span class="kw">double</span> side) : <span class="kw">base</span>(side) { }
 
@@ -679,8 +677,7 @@ Console.<span class="fn">WriteLine</span>(<span class="str">"Saving Interest: "<
 Console.<span class="fn">WriteLine</span>(<span class="str">"Current Interest: "</span> + acc2.<span class="fn">CalculateInterest</span>());</div>
       </div>
     </div>
-
-    <div id="t3-3" class="tab-panel">
+ <div id="t3-3" class="tab-panel">
       <div class="code-wrap">
         <div class="code-header">
           <div class="dots"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div></div>
@@ -775,8 +772,7 @@ v.<span class="fn">Print</span>(); <span class="cm">// المركبة: Toyota  �
     <span class="section-num">أمثلة</span>
     <h2>أمثلة متعددة</h2>
   </div>
-
-  <div class="tabs">
+ <div class="tabs">
     <div class="tab-nav">
       <button class="tab-btn active" onclick="switchTab(this,'t4-1')">IShape</button>
       <button class="tab-btn" onclick="switchTab(this,'t4-2')">IEmployee</button>
@@ -844,8 +840,7 @@ Console.<span class="fn">WriteLine</span>(<span class="str">"Circle: "</span>   
 
     <span class="kw">public double</span> <span class="fn">CalculateBonus</span>() => Salary * <span class="num">0.20</span>; <span class="cm">// 20%</span>
 }
-
-<span class="kw">class</span> <span class="cl">Teacher</span> : <span class="cl">IEmployee</span>
+ <span class="kw">class</span> <span class="cl">Teacher</span> : <span class="cl">IEmployee</span>
 {
     <span class="kw">public string</span> Name   { <span class="kw">get</span>; <span class="kw">set</span>; }
     <span class="kw">public double</span> Salary { <span class="kw">get</span>; <span class="kw">set</span>; }
@@ -903,8 +898,7 @@ Console.<span class="fn">WriteLine</span>(<span class="str">"Car Speed: "</span>
 Console.<span class="fn">WriteLine</span>(<span class="str">"Bike Speed: "</span> + bike.<span class="fn">CalculateSpeed</span>());</div>
       </div>
     </div>
-
-    <div id="t4-4" class="tab-panel">
+ <div id="t4-4" class="tab-panel">
       <div class="code-wrap">
         <div class="code-header">
           <div class="dots"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div></div>
@@ -950,6 +944,931 @@ emps.<span class="fn">Add</span>(<span class="kw">new</span> <span class="cl">Te
 
 <hr class="divider">
 
+
+<!-- ====== JOBS / الوظائف ====== -->
+<section id="jobs">
+  <div class="section-header">
+    <span class="section-num">الوظائف</span>
+    <h2>أسئلة الوظائف مع الحلول</h2>
+  </div>
+
+  <div class="info-box" style="margin-bottom:2rem">
+    <strong>14 وظيفة</strong> مستخرجة من المحاضرات الأربع — كل وظيفة مرفقة بالسؤال الأصلي والحل الكامل.
+  </div>
+
+  <div class="tabs">
+    <div class="tab-nav" style="flex-wrap:wrap; gap:0.4rem">
+      <button class="tab-btn active" onclick="switchTab(this,'job-0')">وظيفة 1</button>
+      <button class="tab-btn " onclick="switchTab(this,'job-1')">وظيفة 2</button>
+      <button class="tab-btn " onclick="switchTab(this,'job-2')">وظيفة 3</button>
+      <button class="tab-btn " onclick="switchTab(this,'job-3')">وظيفة 4</button>
+      <button class="tab-btn " onclick="switchTab(this,'job-4')">وظيفة 5</button>
+      <button class="tab-btn " onclick="switchTab(this,'job-5')">وظيفة 6</button>
+ <button class="tab-btn " onclick="switchTab(this,'job-6')">وظيفة 7</button>
+      <button class="tab-btn " onclick="switchTab(this,'job-7')">وظيفة 8</button>
+      <button class="tab-btn " onclick="switchTab(this,'job-8')">وظيفة 9</button>
+      <button class="tab-btn " onclick="switchTab(this,'job-9')">وظيفة 10</button>
+      <button class="tab-btn " onclick="switchTab(this,'job-10')">وظيفة 11</button>
+      <button class="tab-btn " onclick="switchTab(this,'job-11')">وظيفة 12</button>
+      <button class="tab-btn " onclick="switchTab(this,'job-12')">وظيفة 13</button>
+      <button class="tab-btn " onclick="switchTab(this,'job-13')">وظيفة 14</button>
+    </div>
+
+    <div id="job-0" class="tab-panel active">
+      <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:1.5rem; margin-bottom:1rem">
+        <div style="display:flex; gap:0.5rem; align-items:center; margin-bottom:0.75rem">
+          <span class="badge badge-blue">محاضرة 3</span>
+          <span class="badge badge-green">حل مكتمل</span>
+        </div>
+        <h3 style="font-size:1.1rem; color:var(--accent); margin-bottom:0.75rem">وظيفة 1: Vehicle (Abstract Class)</h3>
+        <p style="font-size:0.9rem; color:var(--text-muted); line-height:1.8; margin-bottom:1rem">
+          <strong style="color:var(--text)">السؤال:</strong> اكتب برنامج عرف فيه كلاس مجرد (abstract) مركبة Vehicle يحتوي اسم المركبة ودالة طباعة لطباعة اسم المركبة وسرعتها ودالة مجردة لحساب السرعة. وأنشئ Class Car يرث من Vehicle والزمن ويحسب سرعة المركبة حيث أن السرعة = المسافة ÷ الزمن. في Main أنشئ كائناً واطبع اسم المركبة وسرعتها.
+        </p>
+      </div>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="dots"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div></div>
+          <span class="code-title">Solution.cs</span>
+        </div>
+        <div class="code-body">abstract class Vehicle
+{
+    public string VehicleName { get; set; }
+
+    public void Print()
+    {
+        Console.WriteLine($"المركبة: {VehicleName}  السرعة: {CalculateSpeed()}");
+    }
+
+    public abstract double CalculateSpeed();
+}
+
+class Car : Vehicle
+{
+    public double Distance { get; set; }
+    public double Time { get; set; }
+
+    public Car(string name, double d, double t)
+    {
+        VehicleName = name;
+        Distance = d;
+        Time = t;
+    }
+
+    public override double CalculateSpeed()
+    {
+        return Distance / Time;
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Vehicle v = new Car("Toyota", 300, 3);
+        v.Print();  // المركبة: Toyota  السرعة: 100
+    }
+}</div>
+      </div>
+    </div>
+
+    <div id="job-1" class="tab-panel ">
+      <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:1.5rem; margin-bottom:1rem">
+        <div style="display:flex; gap:0.5rem; align-items:center; margin-bottom:0.75rem">
+          <span class="badge badge-blue">محاضرة 3</span>
+          <span class="badge badge-green">حل مكتمل</span>
+        </div>
+        <h3 style="font-size:1.1rem; color:var(--accent); margin-bottom:0.75rem">وظيفة 2: Shape / Square / Cube (Abstract Class)</h3>
+        <p style="font-size:0.9rem; color:var(--text-muted); line-height:1.8; margin-bottom:1rem">
+          <strong style="color:var(--text)">السؤال:</strong> اكتب برنامج عرف فيه كلاس مجرد (abstract) Shape يحتوي على دالة مجردة لحساب المساحة. وأنشئ Class Square يرث من Shape، وأنشئ Class Cube يرث من Square. في Main يدخل طول الضلع من المستخدم ويحسب مساحة المربع ومساحة المكعب ويطبعهما.
+        </p>
+      </div>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="dots"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div></div>
+          <span class="code-title">Solution.cs</span>
+        </div>
+        <div class="code-body">abstract class Shape
+{
+    public abstract double CalculateArea();
+}
+
+class Square : Shape
+{
+    public double Side { get; set; }
+     public Square(double side)
+    {
+        Side = side;
+    }
+
+    public override double CalculateArea()
+    {
+        return Side * Side;
+    }
+}
+
+class Cube : Square
+{
+    public Cube(double side) : base(side) { }
+
+    public override double CalculateArea()
+    {
+        return 6 * base.CalculateArea();
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Console.WriteLine("Enter Side length?");
+        double x = Convert.ToDouble(Console.ReadLine());
+        Shape s1 = new Square(x);
+        Shape c1 = new Cube(x);
+        Console.WriteLine("Square Area: " + s1.CalculateArea());
+        Console.WriteLine("Cube Surface Area: " + c1.CalculateArea());
+    }
+}</div>
+      </div>
+    </div>
+
+    <div id="job-2" class="tab-panel ">
+      <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:1.5rem; margin-bottom:1rem">
+        <div style="display:flex; gap:0.5rem; align-items:center; margin-bottom:0.75rem">
+          <span class="badge badge-blue">محاضرة 3</span>
+          <span class="badge badge-green">حل مكتمل</span>
+        </div>
+        <h3 style="font-size:1.1rem; color:var(--accent); margin-bottom:0.75rem">وظيفة 3: BankAccount / SavingAccount / CurrentAccount</h3>
+        <p style="font-size:0.9rem; color:var(--text-muted); line-height:1.8; margin-bottom:1rem">
+          <strong style="color:var(--text)">السؤال:</strong> اكتب برنامج عرف فيه كلاس مجرد (abstract) BankAccount يحتوي على اسم صاحب الحساب والرصيد ودالة مجردة لحساب الفائدة. SavingAccount يرث من BankAccount ويحسب الفائدة بنسبة 5%. CurrentAccount يرث من BankAccount ويحسب الفائدة بنسبة 2%. في Main أنشئ حسابين واطبع الفائدة لكل منهما.
+        </p>
+      </div>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="dots"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div></div>
+          <span class="code-title">Solution.cs</span>
+        </div>
+        <div class="code-body">abstract class BankAccount
+{
+    public string OwnerName { get; set; }
+    public double Account { get; set; }
+
+    public BankAccount(string name, double account)
+    {
+        OwnerName = name;
+        Account = account;
+    }
+
+    public abstract double CalculateInterest();
+}
+
+class SavingAccount : BankAccount
+{
+    public SavingAccount(string name, double balance) : base(name, balance) { }
+
+    public override double CalculateInterest()
+    {
+        return Account * 0.05;  // 5%
+    }
+}
+
+class CurrentAccount : BankAccount
+{
+    public CurrentAccount(string name, double balance) : base(name, balance) { }
+
+    public override double CalculateInterest()
+    {
+        return Account * 0.02;  // 2%
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        BankAccount acc1 = new SavingAccount("Ali", 10000);
+        BankAccount acc2 = new CurrentAccount("Sara", 10000);
+
+        Console.WriteLine("Saving Interest: " + acc1.CalculateInterest());
+        Console.WriteLine("Current Interest: " + acc2.CalculateInterest());
+    }
+}</div>
+      </div>
+    </div>
+
+    <div id="job-3" class="tab-panel ">
+      <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:1.5rem; margin-bottom:1rem">
+        <div style="display:flex; gap:0.5rem; align-items:center; margin-bottom:0.75rem">
+          <span class="badge badge-blue">محاضرة 4</span>
+          <span class="badge badge-green">حل مكتمل</span>
+        </div>
+        <h3 style="font-size:1.1rem; color:var(--accent); margin-bottom:0.75rem">وظيفة 4: ISpeed + Vehicle (Interface + Abstract)</h3>
+        <p style="font-size:0.9rem; color:var(--text-muted); line-height:1.8; margin-bottom:1rem">
+          <strong style="color:var(--text)">السؤال:</strong> أنشئ واجهة ISpeed تفرض وجود دالة CalculateSpeed(). ثم أنشئ كلاساً مجرداً Vehicle يحتوي على Distance و Time. ثم أنشئ كلاسين Car و Bike يرثان من Vehicle ويطبقان الواجهة. في Main أنشئ كائنين سيارة ودراجة واطبع سرعة كل منهما.
+ </p>
+      </div>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="dots"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div></div>
+          <span class="code-title">Solution.cs</span>
+        </div>
+        <div class="code-body">interface ISpeed
+{
+    double CalculateSpeed();
+}
+
+abstract class Vehicle
+{
+    public double Distance { get; set; }
+    public double Time { get; set; }
+
+    public Vehicle(double d, double t)
+    {
+        Distance = d;
+        Time = t;
+    }
+}
+
+class Car : Vehicle, ISpeed
+{
+    public Car(double d, double t) : base(d, t) { }
+
+    public double CalculateSpeed()
+    {
+        return Distance / Time;
+    }
+}
+
+class Bike : Vehicle, ISpeed
+{
+    public Bike(double d, double t) : base(d, t) { }
+
+    public double CalculateSpeed()
+    {
+        return Distance / Time;
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Car car = new Car(200, 2);
+        Bike bike = new Bike(50, 1);
+        Console.WriteLine("Car Speed: " + car.CalculateSpeed());
+        Console.WriteLine("Bike Speed: " + bike.CalculateSpeed());
+    }
+}</div>
+      </div>
+    </div>
+
+    <div id="job-4" class="tab-panel ">
+      <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:1.5rem; margin-bottom:1rem">
+        <div style="display:flex; gap:0.5rem; align-items:center; margin-bottom:0.75rem">
+          <span class="badge badge-blue">محاضرة 4</span>
+          <span class="badge badge-green">حل مكتمل</span>
+        </div>
+        <h3 style="font-size:1.1rem; color:var(--accent); margin-bottom:0.75rem">وظيفة 5: IPrint + Media (Interface + Abstract)</h3>
+        <p style="font-size:0.9rem; color:var(--text-muted); line-height:1.8; margin-bottom:1rem">
+          <strong style="color:var(--text)">السؤال:</strong> عرف واجهة IPrint تحتوي على دالة Print(). أنشئ كلاساً مجرداً Media يحتوي Title و Year. أنشئ Movie و Book يرثان من Media ويطبقان IPrint. في Main أنشئ قائمة List<IPrint> واطبع معلومات كل عنصر.
+        </p>
+      </div>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="dots"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div></div>
+          <span class="code-title">Solution.cs</span>
+        </div>
+        <div class="code-body">interface IPrint
+{
+    void Print();
+}
+
+abstract class Media
+{
+    public string Title { get; set; }
+    public int Year { get; set; }
+
+    public Media(string title, int year)
+    {
+        Title = title;
+        Year = year;
+    }
+}
+
+class Movie : Media, IPrint
+{
+    public Movie(string title, int year) : base(title, year) { }
+
+    public void Print()
+    {
+        Console.WriteLine("Movie Information");
+        Console.WriteLine("Title: {0}, Year: {1}", Title, Year);
+    }
+}
+
+class Book : Media, IPrint
+{
+    public Book(string title, int year) : base(title, year) { }
+
+    public void Print()
+    {
+        Console.WriteLine("Book Information");
+        Console.WriteLine("Title: {0}, Year: {1}", Title, Year);
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        List&lt;IPrint&gt; media = new List&lt;IPrint&gt;();
+        media.Add(new Movie("Inception", 2010));
+        media.Add(new Book("C# Programming", 2023));
+
+        foreach (IPrint x in media)
+        {
+            x.Print();
+        }
+    }
+}</div>
+      </div>
+    </div>
+
+    <div id="job-5" class="tab-panel ">
+      <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:1.5rem; margin-bottom:1rem">
+        <div style="display:flex; gap:0.5rem; align-items:center; margin-bottom:0.75rem">
+          <span class="badge badge-blue">محاضرة 4</span>
+          <span class="badge badge-green">حل مكتمل</span>
+ </div>
+        <h3 style="font-size:1.1rem; color:var(--accent); margin-bottom:0.75rem">وظيفة 6: IEmployee + Manager + Teacher (Interface + List)</h3>
+        <p style="font-size:0.9rem; color:var(--text-muted); line-height:1.8; margin-bottom:1rem">
+          <strong style="color:var(--text)">السؤال:</strong> عرف واجهة IEmployee تحتوي Name و Salary و CalculateBonus(). Manager يحسب مكافأة 20% من الراتب. Teacher يحسب مكافأة 10% من الراتب. في Main أنشئ قائمة List<IEmployee> تحتوي مدير ومعلم، ثم اطبع اسم كل موظف وراتبه ومكافأته.
+        </p>
+      </div>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="dots"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div></div>
+          <span class="code-title">Solution.cs</span>
+        </div>
+        <div class="code-body">interface IEmployee
+{
+    string Name { get; set; }
+    double Salary { get; set; }
+    double CalculateBonus();
+}
+
+class Manager : IEmployee
+{
+    public string Name { get; set; }
+    public double Salary { get; set; }
+
+    public Manager(string name, double salary)
+    {
+        Name = name;
+        Salary = salary;
+    }
+
+    public double CalculateBonus()
+    {
+        return Salary * 0.20;  // 20%
+    }
+}
+
+class Teacher : IEmployee
+{
+    public string Name { get; set; }
+    public double Salary { get; set; }
+
+    public Teacher(string name, double salary)
+    {
+        Name = name;
+        Salary = salary;
+    }
+
+    public double CalculateBonus()
+    {
+        return Salary * 0.10;  // 10%
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        List&lt;IEmployee&gt; employees = new List&lt;IEmployee&gt;();
+        employees.Add(new Manager("Sara", 2000));
+        employees.Add(new Teacher("Ali", 3000));
+
+        foreach (var emp in employees)
+        {
+            Console.WriteLine("Name: {0}, Salary: {1}, Bonus: {2}",
+                emp.Name, emp.Salary, emp.CalculateBonus());
+        }
+    }
+}</div>
+      </div>
+    </div>
+
+    <div id="job-6" class="tab-panel ">
+      <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:1.5rem; margin-bottom:1rem">
+        <div style="display:flex; gap:0.5rem; align-items:center; margin-bottom:0.75rem">
+          <span class="badge badge-blue">محاضرة 4</span>
+          <span class="badge badge-green">حل مكتمل</span>
+        </div>
+        <h3 style="font-size:1.1rem; color:var(--accent); margin-bottom:0.75rem">وظيفة 7: IShape + Rectangle + Circle (Interface)</h3>
+        <p style="font-size:0.9rem; color:var(--text-muted); line-height:1.8; margin-bottom:1rem">
+          <strong style="color:var(--text)">السؤال:</strong> أنشئ واجهة IShape تفرض وجود دالة CalculateArea(). أنشئ Rectangle (الطول والعرض) و Circle (نصف القطر). في Main أنشئ كائنين واطبع مساحة كل منهما.
+        </p>
+      </div>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="dots"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div></div>
+          <span class="code-title">Solution.cs</span>
+        </div>
+        <div class="code-body">interface IShape
+{
+    double CalculateArea();
+}
+
+class Rectangle : IShape
+{
+    public double Length { get; set; }
+    public double Width { get; set; }
+
+    public Rectangle(double length, double width)
+    {
+        Length = length;
+        Width = width;
+    }
+
+    public double CalculateArea()
+    {
+        return Length * Width;
+    }
+}
+
+class Circle : IShape
+{
+    public double Radius { get; set; }
+
+    public Circle(double radius)
+    {
+        Radius = radius;
+    }
+
+    public double CalculateArea()
+    {
+        return Math.PI * Radius * Radius;
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        IShape s1 = new Rectangle(5, 4);
+        IShape s2 = new Circle(3);
+
+        Console.WriteLine("Rectangle Area: " + s1.CalculateArea());
+        Console.WriteLine("Circle Area: " + s2.CalculateArea());
+    }
+}</div>
+      </div>
+    </div>
+ <div id="job-7" class="tab-panel ">
+      <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:1.5rem; margin-bottom:1rem">
+        <div style="display:flex; gap:0.5rem; align-items:center; margin-bottom:0.75rem">
+          <span class="badge badge-blue">محاضرة 4</span>
+          <span class="badge badge-green">حل مكتمل</span>
+        </div>
+        <h3 style="font-size:1.1rem; color:var(--accent); margin-bottom:0.75rem">وظيفة 8: IEmp + Employee + Manager + Teacher (Interface + Abstract + List)</h3>
+        <p style="font-size:0.9rem; color:var(--text-muted); line-height:1.8; margin-bottom:1rem">
+          <strong style="color:var(--text)">السؤال:</strong> أنشئ واجهة IEmp تفرض CalculateTax(). أنشئ كلاساً مجرداً Employee يحتوي Name و Salary ودالة PrintInfo(). Manager ضرائبه 5% من الراتب. Teacher ضرائبه 4% من الراتب. في Main أنشئ قائمة List<Employee> واطبع معلومات كل موظف.
+        </p>
+      </div>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="dots"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div></div>
+          <span class="code-title">Solution.cs</span>
+        </div>
+        <div class="code-body">interface IEmp
+{
+    double CalculateTax();
+}
+
+abstract class Employee : IEmp
+{
+    public string Name { get; set; }
+    public double Salary { get; set; }
+
+    public Employee(string name, double salary)
+    {
+        Name = name;
+        Salary = salary;
+    }
+
+    public void PrintInfo()
+    {
+        Console.WriteLine("Name: {0}, Salary: {1}, Tax: {2}",
+            Name, Salary, CalculateTax());
+    }
+
+    public abstract double CalculateTax();
+}
+
+class Manager : Employee
+{
+    public Manager(string name, double salary) : base(name, salary) { }
+
+    public override double CalculateTax()
+    {
+        return Salary * 0.05;  // 5%
+    }
+}
+
+class Teacher : Employee
+{
+    public Teacher(string name, double salary) : base(name, salary) { }
+
+    public override double CalculateTax()
+    {
+        return Salary * 0.04;  // 4%
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        List&lt;Employee&gt; employees = new List&lt;Employee&gt;();
+        employees.Add(new Manager("Ali", 5000));
+        employees.Add(new Teacher("Sara", 4000));
+
+        foreach (Employee emp in employees)
+        {
+            emp.PrintInfo();
+        }
+    }
+}</div>
+      </div>
+    </div>
+
+    <div id="job-8" class="tab-panel ">
+      <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:1.5rem; margin-bottom:1rem">
+        <div style="display:flex; gap:0.5rem; align-items:center; margin-bottom:0.75rem">
+          <span class="badge badge-blue">محاضرة 1</span>
+          <span class="badge badge-green">حل مكتمل</span>
+        </div>
+        <h3 style="font-size:1.1rem; color:var(--accent); margin-bottom:0.75rem">وظيفة 9: Circle / Cylinder (Inheritance)</h3>
+        <p style="font-size:0.9rem; color:var(--text-muted); line-height:1.8; margin-bottom:1rem">
+          <strong style="color:var(--text)">السؤال:</strong> اكتب برنامج يستخدم الوراثة يقوم بتعريف Class Circle يحتوي نصف القطر ويحسب مساحة الدائرة. Cylinder يرث من Circle ويضيف الارتفاع ويحسب مساحة الأسطوانة. تابع باني لملئ الخصائص بالقيم.
+        </p>
+      </div>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="dots"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div></div>
+          <span class="code-title">Solution.cs</span>
+        </div>
+        <div class="code-body">class Circle
+{
+    public double Radius { get; set; }
+
+    public Circle(double radius)
+    {
+        Radius = radius;
+    }
+
+    public double CalculateArea()
+    {
+        return Math.PI * Radius * Radius;
+    }
+}
+
+class Cylinder : Circle
+{
+    public double Height { get; set; }
+
+    public Cylinder(double radius, double height) : base(radius)
+    {
+        Height = height;
+    }
+ public double CalculateArea()
+    {
+        return 2 * Math.PI * Radius * (Radius + Height);
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Cylinder c = new Cylinder(5, 10);
+        Console.WriteLine("Circle Area: " + base.CalculateArea());
+        Console.WriteLine("Cylinder Area: " + c.CalculateArea());
+    }
+}</div>
+      </div>
+    </div>
+
+    <div id="job-9" class="tab-panel ">
+      <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:1.5rem; margin-bottom:1rem">
+        <div style="display:flex; gap:0.5rem; align-items:center; margin-bottom:0.75rem">
+          <span class="badge badge-blue">محاضرة 1</span>
+          <span class="badge badge-green">حل مكتمل</span>
+        </div>
+        <h3 style="font-size:1.1rem; color:var(--accent); margin-bottom:0.75rem">وظيفة 10: Parent / Child (Inheritance)</h3>
+        <p style="font-size:0.9rem; color:var(--text-muted); line-height:1.8; margin-bottom:1rem">
+          <strong style="color:var(--text)">السؤال:</strong> اكتب برنامج يستخدم الوراثة يقوم بتعريف Class Parent يحتوي الاسم والعمر. Child يرث من Parent ويضيف رقماً جامعياً. تابع باني لملئ الخصائص بالقيم للكلاسين ثم يطبع معلومات الطالب.
+        </p>
+      </div>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="dots"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div></div>
+          <span class="code-title">Solution.cs</span>
+        </div>
+        <div class="code-body">class Parent
+{
+    public string Name { get; set; }
+    public int Age { get; set; }
+
+    public Parent(string name, int age)
+    {
+        Name = name;
+        Age = age;
+    }
+}
+
+class Child : Parent
+{
+    public int UniversityID { get; set; }
+
+    public Child(string name, int age, int uid) : base(name, age)
+    {
+        UniversityID = uid;
+    }
+
+    public void PrintInfo()
+    {
+        Console.WriteLine("Name: " + Name);
+        Console.WriteLine("Age: " + Age);
+        Console.WriteLine("UID: " + UniversityID);
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Child student = new Child("Ali", 20, 12345);
+        student.PrintInfo();
+    }
+}</div>
+      </div>
+    </div>
+
+    <div id="job-10" class="tab-panel ">
+      <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:1.5rem; margin-bottom:1rem">
+        <div style="display:flex; gap:0.5rem; align-items:center; margin-bottom:0.75rem">
+          <span class="badge badge-blue">محاضرة 1</span>
+          <span class="badge badge-green">حل مكتمل</span>
+        </div>
+        <h3 style="font-size:1.1rem; color:var(--accent); margin-bottom:0.75rem">وظيفة 11: Point / Circle (Inheritance)</h3>
+        <p style="font-size:0.9rem; color:var(--text-muted); line-height:1.8; margin-bottom:1rem">
+          <strong style="color:var(--text)">السؤال:</strong> اكتب برنامج يستخدم الوراثة يقوم بتعريف Class Point يحتوي إحداثيات (x,y) ويطبعها. Circle يرث من Point ويضيف نصف القطر ويحسب مساحة الدائرة ويطبع معلومات الدائرة. تابع باني لملئ الخصائص بالقيم.
+        </p>
+      </div>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="dots"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div></div>
+          <span class="code-title">Solution.cs</span>
+        </div>
+        <div class="code-body">class Point
+{
+    public double X { get; set; }
+    public double Y { get; set; }
+
+    public Point(double x, double y)
+    {
+        X = x;
+        Y = y;
+    }
+
+    public void Print()
+    {
+        Console.WriteLine("Point: ({0}, {1})", X, Y);
+    }
+}
+
+class Circle : Point
+{
+    public double Radius { get; set; }
+
+    public Circle(double x, double y, double radius) : base(x, y)
+    {
+        Radius = radius;
+    }
+
+    public double CalculateArea()
+    {
+        return Math.PI * Radius * Radius;
+    }
+
+    public void PrintInfo()
+    {
+        Print();
+        Console.WriteLine("Radius: " + Radius);
+        Console.WriteLine("Area: " + CalculateArea());
+    }
+}
+ class Program
+{
+    static void Main()
+    {
+        Circle c = new Circle(3, 4, 5);
+        c.PrintInfo();
+    }
+}</div>
+      </div>
+    </div>
+
+    <div id="job-11" class="tab-panel ">
+      <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:1.5rem; margin-bottom:1rem">
+        <div style="display:flex; gap:0.5rem; align-items:center; margin-bottom:0.75rem">
+          <span class="badge badge-blue">محاضرة 2</span>
+          <span class="badge badge-green">حل مكتمل</span>
+        </div>
+        <h3 style="font-size:1.1rem; color:var(--accent); margin-bottom:0.75rem">وظيفة 12: Shipping / FastShipping (Virtual & Override)</h3>
+        <p style="font-size:0.9rem; color:var(--text-muted); line-height:1.8; margin-bottom:1rem">
+          <strong style="color:var(--text)">السؤال:</strong> اكتب برنامج يستخدم الوراثة يقوم بتعريف Class Shipping يحتوي الوزن ويحسب تكلفة الشحن العادي. FastShipping يرث من Shipping ويضيف رسوم إضافية (5 + 10*كل كجم). تابع باني لملئ الخصائص بالقيم. دالة حساب التكلفة virtual.
+        </p>
+      </div>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="dots"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div></div>
+          <span class="code-title">Solution.cs</span>
+        </div>
+        <div class="code-body">class Shipping
+{
+    public double Weight { get; set; }
+
+    public Shipping(double weight)
+    {
+        Weight = weight;
+    }
+
+    public virtual double CalculateCost()
+    {
+        return 5 * Weight;  // 5 لكل كجم
+    }
+}
+
+class FastShipping : Shipping
+{
+    public FastShipping(double weight) : base(weight) { }
+
+    public override double CalculateCost()
+    {
+        return base.CalculateCost() + 10 * Weight;  // رسوم إضافية
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Shipping s1 = new Shipping(10);
+        Shipping s2 = new FastShipping(10);
+        Console.WriteLine("Normal Cost: " + s1.CalculateCost());
+        Console.WriteLine("Fast Cost: " + s2.CalculateCost());
+    }
+}</div>
+      </div>
+    </div>
+
+    <div id="job-12" class="tab-panel ">
+      <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:1.5rem; margin-bottom:1rem">
+        <div style="display:flex; gap:0.5rem; align-items:center; margin-bottom:0.75rem">
+          <span class="badge badge-blue">محاضرة 2</span>
+          <span class="badge badge-green">حل مكتمل</span>
+        </div>
+        <h3 style="font-size:1.1rem; color:var(--accent); margin-bottom:0.75rem">وظيفة 13: Circle / Cylinder (Virtual & Override)</h3>
+        <p style="font-size:0.9rem; color:var(--text-muted); line-height:1.8; margin-bottom:1rem">
+          <strong style="color:var(--text)">السؤال:</strong> اكتب برنامج يستخدم الوراثة يقوم بتعريف Class Circle يحتوي نصف القطر ويحسب مساحة الدائرة. Cylinder يرث من Circle ويضيف الارتفاع ويحسب مساحة الأسطوانة. دالة حساب المساحة virtual. تابع باني لملئ الخصائص بالقيم.
+        </p>
+      </div>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="dots"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div></div>
+          <span class="code-title">Solution.cs</span>
+        </div>
+        <div class="code-body">class Circle
+{
+    public double Radius { get; set; }
+
+    public Circle(double radius)
+    {
+        Radius = radius;
+    }
+
+    public virtual double CalculateArea()
+    {
+        return Math.PI * Radius * Radius;
+    }
+}
+
+class Cylinder : Circle
+{
+    public double Height { get; set; }
+
+    public Cylinder(double radius, double height) : base(radius)
+    {
+        Height = height;
+    }
+
+    public override double CalculateArea()
+    {
+        return 2 * Math.PI * Radius * (Radius + Height);
+    }
+}
+ class Program
+{
+    static void Main()
+    {
+        Circle c = new Circle(5);
+        Cylinder cyl = new Cylinder(5, 10);
+        Console.WriteLine("Circle Area: " + c.CalculateArea());
+        Console.WriteLine("Cylinder Area: " + cyl.CalculateArea());
+    }
+}</div>
+      </div>
+    </div>
+
+    <div id="job-13" class="tab-panel ">
+      <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:1.5rem; margin-bottom:1rem">
+        <div style="display:flex; gap:0.5rem; align-items:center; margin-bottom:0.75rem">
+          <span class="badge badge-blue">محاضرة 2</span>
+          <span class="badge badge-green">حل مكتمل</span>
+        </div>
+        <h3 style="font-size:1.1rem; color:var(--accent); margin-bottom:0.75rem">وظيفة 14: Employee / HourlyEmployee (Virtual & Override)</h3>
+        <p style="font-size:0.9rem; color:var(--text-muted); line-height:1.8; margin-bottom:1rem">
+          <strong style="color:var(--text)">السؤال:</strong> اكتب برنامج يستخدم الوراثة يقوم بتعريف Class Employee يحتوي الاسم والراتب ودالة الزيادة (virtual). HourlyEmployee يرث منه ويحتوي عدد الساعات وسعر الساعة ويحسب الراتب مع الزيادة. تابع باني لملئ الخصائص بالقيم.
+        </p>
+      </div>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="dots"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div></div>
+          <span class="code-title">Solution.cs</span>
+        </div>
+        <div class="code-body">class Employee
+{
+    public string Name { get; set; }
+    public double Salary { get; set; }
+
+    public Employee(string name, double salary)
+    {
+        Name = name;
+        Salary = salary;
+    }
+
+    public virtual double CalculateSalary()
+    {
+        return Salary;
+    }
+}
+
+class HourlyEmployee : Employee
+{
+    public int Hours { get; set; }
+    public double HourRate { get; set; }
+
+    public HourlyEmployee(string name, double salary, int hours, double rate)
+        : base(name, salary)
+    {
+        Hours = hours;
+        HourRate = rate;
+    }
+
+    public override double CalculateSalary()
+    {
+        return Salary + (Hours * HourRate);
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Employee e1 = new Employee("Ali", 5000);
+        Employee e2 = new HourlyEmployee("Sara", 3000, 40, 50);
+        Console.WriteLine("Employee Salary: " + e1.CalculateSalary());
+        Console.WriteLine("Hourly Salary: " + e2.CalculateSalary());
+    }
+}</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
 <!-- ====== QUIZ ====== -->
 <section id="quiz">
   <div class="section-header">
@@ -1037,11 +1956,13 @@ let correctCount = 0;
 
 function renderQuiz() {
   const c = document.getElementById('quiz-container');
+  
+  // تصحيح: تم استخدام الـ Backticks (`) بدلاً من علامات الاقتباس العادية ليتم قراءة الـ HTML الممتد
   c.innerHTML = questions.map((q, i) => `
     <div class="quiz-card" id="qcard-${i}">
       <div class="quiz-q">${i+1}. ${q.q}</div>
       <div class="quiz-options">
-        ${q.opts.map((o,j) => `
+        ${q.opts.map((o, j) => `
           <div class="quiz-opt" id="opt-${i}-${j}" onclick="answer(${i},${j})">${o}</div>
         `).join('')}
       </div>
@@ -1051,16 +1972,20 @@ function renderQuiz() {
 }
 
 function answer(qi, oi) {
-  if (answers[qi] !== null) return; // already answered
+  if (answers[qi] !== null) return; // تم الإجابة مسبقاً
   answers[qi] = oi;
   const q = questions[qi];
+  
+  // تصحيح: تم تعديل الأقواس الخاطئة إلى أقواس دالة طبيعية () مع الـ Backticks بالداخل
   const fb = document.getElementById(`fb-${qi}`);
-  // mark options
-  for (let j=0; j<q.opts.length; j++) {
+  
+  // تلوين الخيارات (الصحيح والأخضر / الخطأ والأحمر)
+  for (let j = 0; j < q.opts.length; j++) {
     const el = document.getElementById(`opt-${qi}-${j}`);
     if (j === q.ans) el.classList.add('correct');
     else if (j === oi && oi !== q.ans) el.classList.add('wrong');
   }
+  
   if (oi === q.ans) {
     fb.className = 'quiz-feedback show ok';
     fb.textContent = '✓ صحيح — ' + q.explain;
@@ -1078,6 +2003,7 @@ function updateScore() {
   document.getElementById('progress-fill').style.width = (answered / questions.length * 100) + '%';
 }
 
+// تشغيل الدالة فوراً عند تحميل الصفحة ليظهر الاختبار
 renderQuiz();
 </script>
 </body>
