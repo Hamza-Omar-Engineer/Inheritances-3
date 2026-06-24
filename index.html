@@ -317,7 +317,33 @@
     .nav-links { display: none; }
     .hero h1 { font-size: 2rem; }
   }
+
+  #space-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1; /* لجعل الفضاء خلف المحتوى تماماً */
+    pointer-events: none;
+  }
+  /* تحديث طفيف لجعل واجهات الموقع تبدو شفافة ومندمجة بشكل مذهل مع عمق الفضاء */
+  body {
+    background: #060408 !important; 
+  }
+  .hero, section, .card, .code-wrap, .quiz-card, footer {
+    position: relative;
+    z-index: 1;
+  }
+  .card, .quiz-card, .code-wrap, nav {
+    background: rgba(22, 27, 34, 0.75) !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+<canvas id="space-canvas"></canvas>
 </head>
 <body>
 
@@ -974,7 +1000,7 @@ emps.<span class="fn">Add</span>(<span class="kw">new</span> <span class="cl">Te
       <button class="tab-btn " onclick="switchTab(this,'job-13')">وظيفة 14</button>
     </div>
 
-    <div id="job-0" class="tab-panel active">
+  <div id="job-0" class="tab-panel active">
       <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:1.5rem; margin-bottom:1rem">
         <div style="display:flex; gap:0.5rem; align-items:center; margin-bottom:0.75rem">
           <span class="badge badge-blue">محاضرة 3</span>
@@ -990,42 +1016,42 @@ emps.<span class="fn">Add</span>(<span class="kw">new</span> <span class="cl">Te
           <div class="dots"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div></div>
           <span class="code-title">Solution.cs</span>
         </div>
-        <div class="code-body">abstract class Vehicle
+        <div class="code-body"><span class="kw">abstract class</span> <span class="cl">Vehicle</span>
 {
-    public string VehicleName { get; set; }
+    <span class="kw">public string</span> VehicleName { <span class="kw">get</span>; <span class="kw">set</span>; }
 
-    public void Print()
+    <span class="kw">public void</span> Print()
     {
-        Console.WriteLine($"المركبة: {VehicleName}  السرعة: {CalculateSpeed()}");
+        <span class="cl">Console</span>.<span class="fn">WriteLine</span>(<span class="str">$"المركبة: {VehicleName}  السرعة: {CalculateSpeed()}"</span>);
     }
 
-    public abstract double CalculateSpeed();
+    <span class="kw">public abstract double</span> <span class="fn">CalculateSpeed</span>();
 }
 
-class Car : Vehicle
+<span class="kw">class</span> <span class="cl">Car</span> : <span class="cl">Vehicle</span>
 {
-    public double Distance { get; set; }
-    public double Time { get; set; }
+    <span class="kw">public double</span> Distance { <span class="kw">get</span>; <span class="kw">set</span>; }
+    <span class="kw">public double</span> Time { <span class="kw">get</span>; <span class="kw">set</span>; }
 
-    public Car(string name, double d, double t)
+    <span class="kw">public</span> <span class="fn">Car</span>(<span class="kw">string</span> name, <span class="kw">double</span> d, <span class="kw">double</span> t)
     {
         VehicleName = name;
         Distance = d;
         Time = t;
     }
 
-    public override double CalculateSpeed()
+    <span class="kw">public override double</span> <span class="fn">CalculateSpeed</span>()
     {
-        return Distance / Time;
+        <span class="kw">return</span> Distance / Time;
     }
 }
 
-class Program
+<span class="kw">class</span> <span class="cl">Program</span>
 {
-    static void Main()
+    <span class="kw">static void</span> <span class="fn">Main</span>()
     {
-        Vehicle v = new Car("Toyota", 300, 3);
-        v.Print();  // المركبة: Toyota  السرعة: 100
+        <span class="cl">Vehicle</span> v = <span class="kw">new</span> <span class="cl">Car</span>(<span class="str">"Toyota"</span>, <span class="num">300</span>, <span class="num">3</span>);
+        v.<span class="fn">Print</span>();  <span class="cm">// المركبة: Toyota  السرعة: 100</span>
     }
 }</div>
       </div>
@@ -1047,45 +1073,48 @@ class Program
           <div class="dots"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div></div>
           <span class="code-title">Solution.cs</span>
         </div>
-        <div class="code-body">abstract class Shape
+        <div class="code-body"><span class="kw">abstract class</span> <span class="cl">Shape</span>
 {
-    public abstract double CalculateArea();
+    <span class="kw">public abstract double</span> <span class="fn">CalculateArea</span>();
 }
 
-class Square : Shape
+<span class="kw">class</span> <span class="cl">Square</span> : <span class="cl">Shape</span>
 {
-    public double Side { get; set; }
-     public Square(double side)
+    <span class="kw">public double</span> Side { <span class="kw">get</span>; <span class="kw">set</span>; }
+    
+    <span class="kw">public</span> <span class="fn">Square</span>(<span class="kw">double</span> side)
     {
         Side = side;
     }
 
-    public override double CalculateArea()
+    <span class="kw">public override double</span> <span class="fn">CalculateArea</span>()
     {
-        return Side * Side;
+        <span class="kw">return</span> Side * Side;
     }
 }
 
-class Cube : Square
+<span class="kw">class</span> <span class="cl">Cube</span> : <span class="cl">Square</span>
 {
-    public Cube(double side) : base(side) { }
+    <span class="kw">public</span> <span class="fn">Cube</span>(<span class="kw">double</span> side) : <span class="kw">base</span>(side) { }
 
-    public override double CalculateArea()
+    <span class="kw">public override double</span> <span class="fn">CalculateArea</span>()
     {
-        return 6 * base.CalculateArea();
+        <span class="kw">return</span> <span class="num">6</span> * <span class="kw">base</span>.<span class="fn">CalculateArea</span>();
     }
 }
 
-class Program
+<span class="kw">class</span> <span class="cl">Program</span>
 {
-    static void Main()
+    <span class="kw">static void</span> <span class="fn">Main</span>()
     {
-        Console.WriteLine("Enter Side length?");
-        double x = Convert.ToDouble(Console.ReadLine());
-        Shape s1 = new Square(x);
-        Shape c1 = new Cube(x);
-        Console.WriteLine("Square Area: " + s1.CalculateArea());
-        Console.WriteLine("Cube Surface Area: " + c1.CalculateArea());
+        <span class="cl">Console</span>.<span class="fn">Write</span>(<span class="str">"Enter Side length: "</span>);
+        <span class="kw">double</span> x = <span class="cl">Convert</span>.<span class="fn">ToDouble</span>(<span class="cl">Console</span>.<span class="fn">ReadLine</span>());
+        
+        <span class="cl">Shape</span> s1 = <span class="kw">new</span> <span class="cl">Square</span>(x);
+        <span class="cl">Shape c1 = <span class="kw">new</span> <span class="cl">Cube</span>(x);
+        
+        <span class="cl">Console</span>.<span class="fn">WriteLine</span>(<span class="str">$"Square Area: {s1.CalculateArea()}"</span>);
+        <span class="cl">Console</span>.<span class="fn">WriteLine</span>(<span class="str">$"Cube Surface Area: {c1.CalculateArea()}"</span>);
     }
 }</div>
       </div>
@@ -1107,49 +1136,49 @@ class Program
           <div class="dots"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div></div>
           <span class="code-title">Solution.cs</span>
         </div>
-        <div class="code-body">abstract class BankAccount
+        <div class="code-body"><span class="kw">abstract class</span> <span class="cl">BankAccount</span>
 {
-    public string OwnerName { get; set; }
-    public double Account { get; set; }
+    <span class="kw">public string</span> OwnerName { <span class="kw">get</span>; <span class="kw">set</span>; }
+    <span class="kw">public double</span> Account { <span class="kw">get</span>; <span class="kw">set</span>; }
 
-    public BankAccount(string name, double account)
+    <span class="kw">public</span> <span class="fn">BankAccount</span>(<span class="kw">string</span> name, <span class="kw">double</span> account)
     {
         OwnerName = name;
         Account = account;
     }
 
-    public abstract double CalculateInterest();
+    <span class="kw">public abstract double</span> <span class="fn">CalculateInterest</span>();
 }
 
-class SavingAccount : BankAccount
+<span class="kw">class</span> <span class="cl">SavingAccount</span> : <span class="cl">BankAccount</span>
 {
-    public SavingAccount(string name, double balance) : base(name, balance) { }
+    <span class="kw">public</span> <span class="fn">SavingAccount</span>(<span class="kw">string</span> name, <span class="kw">double</span> balance) : <span class="kw">base</span>(name, balance) { }
 
-    public override double CalculateInterest()
+    <span class="kw">public override double</span> <span class="fn">CalculateInterest</span>()
     {
-        return Account * 0.05;  // 5%
+        <span class="kw">return</span> Account * <span class="num">0.05</span>;  <span class="cm">// 5%</span>
     }
 }
 
-class CurrentAccount : BankAccount
+<span class="kw">class</span> <span class="cl">CurrentAccount</span> : <span class="cl">BankAccount</span>
 {
-    public CurrentAccount(string name, double balance) : base(name, balance) { }
+    <span class="kw">public</span> <span class="fn">CurrentAccount</span>(<span class="kw">string</span> name, <span class="kw">double</span> balance) : <span class="kw">base</span>(name, balance) { }
 
-    public override double CalculateInterest()
+    <span class="kw">public override double</span> <span class="fn">CalculateInterest</span>()
     {
-        return Account * 0.02;  // 2%
+        <span class="kw">return</span> Account * <span class="num">0.02</span>;  <span class="cm">// 2%</span>
     }
 }
 
-class Program
+<span class="kw">class</span> <span class="cl">Program</span>
 {
-    static void Main()
+    <span class="kw">static void</span> <span class="fn">Main</span>()
     {
-        BankAccount acc1 = new SavingAccount("Ali", 10000);
-        BankAccount acc2 = new CurrentAccount("Sara", 10000);
+        <span class="cl">BankAccount</span> acc1 = <span class="kw">new</span> <span class="cl">SavingAccount</span>(<span class="str">"Ali"</span>, <span class="num">10000</span>);
+        <span class="cl">BankAccount</span> acc2 = <span class="kw">new</span> <span class="cl">CurrentAccount</span>(<span class="str">"Sara"</span>, <span class="num">10000</span>);
 
-        Console.WriteLine("Saving Interest: " + acc1.CalculateInterest());
-        Console.WriteLine("Current Interest: " + acc2.CalculateInterest());
+        <span class="cl">Console</span>.<span class="fn">WriteLine</span>(<span class="str">$"Saving Interest: {acc1.CalculateInterest()}"</span>);
+        <span class="cl">Console</span>.<span class="fn">WriteLine</span>(<span class="str">$"Current Interest: {acc2.CalculateInterest()}"</span>);
     }
 }</div>
       </div>
@@ -1171,51 +1200,51 @@ class Program
           <div class="dots"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div></div>
           <span class="code-title">Solution.cs</span>
         </div>
-        <div class="code-body">interface ISpeed
+        <div class="code-body"><span class="kw">interface</span> <span class="cl">ISpeed</span>
 {
-    double CalculateSpeed();
+    <span class="kw">double</span> <span class="fn">CalculateSpeed</span>();
 }
 
-abstract class Vehicle
+<span class="kw">abstract class</span> <span class="cl">Vehicle</span>
 {
-    public double Distance { get; set; }
-    public double Time { get; set; }
+    <span class="kw">public double</span> Distance { <span class="kw">get</span>; <span class="kw">set</span>; }
+    <span class="kw">public double</span> Time { <span class="kw">get</span>; <span class="kw">set</span>; }
 
-    public Vehicle(double d, double t)
+    <span class="kw">public</span> <span class="fn">Vehicle</span>(<span class="kw">double</span> d, <span class="kw">double</span> t)
     {
         Distance = d;
         Time = t;
     }
 }
 
-class Car : Vehicle, ISpeed
+<span class="kw">class</span> <span class="cl">Car</span> : <span class="cl">Vehicle</span>, <span class="cl">ISpeed</span>
 {
-    public Car(double d, double t) : base(d, t) { }
+    <span class="kw">public</span> <span class="fn">Car</span>(<span class="kw">double</span> d, <span class="kw">double</span> t) : <span class="kw">base</span>(d, t) { }
 
-    public double CalculateSpeed()
+    <span class="kw">public double</span> <span class="fn">CalculateSpeed</span>()
     {
-        return Distance / Time;
+        <span class="kw">return</span> Distance / Time;
     }
 }
 
-class Bike : Vehicle, ISpeed
+<span class="kw">class</span> <span class="cl">Bike</span> : <span class="cl">Vehicle</span>, <span class="cl">ISpeed</span>
 {
-    public Bike(double d, double t) : base(d, t) { }
+    <span class="kw">public</span> <span class="fn">Bike</span>(<span class="kw">double</span> d, <span class="kw">double</span> t) : <span class="kw">base</span>(d, t) { }
 
-    public double CalculateSpeed()
+    <span class="kw">public double</span> <span class="fn">CalculateSpeed</span>()
     {
-        return Distance / Time;
+        <span class="kw">return</span> Distance / Time;
     }
 }
 
-class Program
+<span class="kw">class</span> <span class="cl">Program</span>
 {
-    static void Main()
+    <span class="kw">static void</span> <span class="fn">Main</span>()
     {
-        Car car = new Car(200, 2);
-        Bike bike = new Bike(50, 1);
-        Console.WriteLine("Car Speed: " + car.CalculateSpeed());
-        Console.WriteLine("Bike Speed: " + bike.CalculateSpeed());
+        <span class="cl">Car</span> car = <span class="kw">new</span> <span class="cl">Car</span>(<span class="num">200</span>, <span class="num">2</span>);
+        <span class="cl">Bike</span> bike = <span class="kw">new</span> <span class="cl">Bike</span>(<span class="num">50</span>, <span class="num">1</span>);
+        <span class="cl">Console</span>.<span class="fn">WriteLine</span>(<span class="str">$"Car Speed: {car.CalculateSpeed()}"</span>);
+        <span class="cl">Console</span>.<span class="fn">WriteLine</span>(<span class="str">$"Bike Speed: {bike.CalculateSpeed()}"</span>);
     }
 }</div>
       </div>
@@ -1229,7 +1258,7 @@ class Program
         </div>
         <h3 style="font-size:1.1rem; color:var(--accent); margin-bottom:0.75rem">وظيفة 5: IPrint + Media (Interface + Abstract)</h3>
         <p style="font-size:0.9rem; color:var(--text-muted); line-height:1.8; margin-bottom:1rem">
-          <strong style="color:var(--text)">السؤال:</strong> عرف واجهة IPrint تحتوي على دالة Print(). أنشئ كلاساً مجرداً Media يحتوي Title و Year. أنشئ Movie و Book يرثان من Media ويطبقان IPrint. في Main أنشئ قائمة List<IPrint> واطبع معلومات كل عنصر.
+          <strong style="color:var(--text)">السؤال:</strong> عرف واجهة IPrint تحتوي على دالة Print(). أنشئ كلاساً مجرداً Media يحتوي Title و Year. أنشئ Movie و Book يرثان من Media ويطبقان IPrint. في Main أنشئ قائمة List&lt;IPrint&gt; واطبع معلومات كل عنصر.
         </p>
       </div>
       <div class="code-wrap">
@@ -1237,56 +1266,56 @@ class Program
           <div class="dots"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div></div>
           <span class="code-title">Solution.cs</span>
         </div>
-        <div class="code-body">interface IPrint
+        <div class="code-body"><span class="kw">interface</span> <span class="cl">IPrint</span>
 {
-    void Print();
+    <span class="kw">void</span> <span class="fn">Print</span>();
 }
 
-abstract class Media
+<span class="kw">abstract class</span> <span class="cl">Media</span>
 {
-    public string Title { get; set; }
-    public int Year { get; set; }
+    <span class="kw">public string</span> Title { <span class="kw">get</span>; <span class="kw">set</span>; }
+    <span class="kw">public int</span> Year { <span class="kw">get</span>; <span class="kw">set</span>; }
 
-    public Media(string title, int year)
+    <span class="kw">public</span> <span class="fn">Media</span>(<span class="kw">string</span> title, <span class="kw">int year</span>)
     {
         Title = title;
         Year = year;
     }
 }
 
-class Movie : Media, IPrint
+<span class="kw">class</span> <span class="cl">Movie</span> : <span class="cl">Media</span>, <span class="cl">IPrint</span>
 {
-    public Movie(string title, int year) : base(title, year) { }
+    <span class="kw">public</span> <span class="fn">Movie</span>(<span class="kw">string</span> title, <span class="kw">int year</span>) : <span class="kw">base</span>(title, year) { }
 
-    public void Print()
+    <span class="kw">public void</span> <span class="fn">Print</span>()
     {
-        Console.WriteLine("Movie Information");
-        Console.WriteLine("Title: {0}, Year: {1}", Title, Year);
+        <span class="cl">Console</span>.<span class="fn">WriteLine</span>(<span class="str">"Movie Information"</span>);
+        <span class="cl">Console</span>.<span class="fn">WriteLine</span>(<span class="str">$"Title: {Title}, Year: {Year}"</span>);
     }
 }
 
-class Book : Media, IPrint
+<span class="kw">class</span> <span class="cl">Book</span> : <span class="cl">Media</span>, <span class="cl">IPrint</span>
 {
-    public Book(string title, int year) : base(title, year) { }
+    <span class="kw">public</span> <span class="fn">Book</span>(<span class="kw">string</span> title, <span class="kw">int year</span>) : <span class="kw">base</span>(title, year) { }
 
-    public void Print()
+    <span class="kw">public void</span> <span class="fn">Print</span>()
     {
-        Console.WriteLine("Book Information");
-        Console.WriteLine("Title: {0}, Year: {1}", Title, Year);
+        <span class="cl">Console</span>.<span class="fn">WriteLine</span>(<span class="str">"Book Information"</span>);
+        <span class="cl">Console</span>.<span class="fn">WriteLine</span>(<span class="str">$"Title: {Title}, Year: {Year}"</span>);
     }
 }
 
-class Program
+<span class="kw">class</span> <span class="cl">Program</span>
 {
-    static void Main()
+    <span class="kw">static void</span> <span class="fn">Main</span>()
     {
-        List&lt;IPrint&gt; media = new List&lt;IPrint&gt;();
-        media.Add(new Movie("Inception", 2010));
-        media.Add(new Book("C# Programming", 2023));
+        <span class="cl">List</span>&lt;<span class="cl">IPrint</span>&gt; media = <span class="kw">new</span> <span class="cl">List</span>&lt;<span class="cl">IPrint</span>&gt;();
+        media.<span class="fn">Add</span>(<span class="kw">new</span> <span class="cl">Movie</span>(<span class="str">"Inception"</span>, <span class="num">2010</span>));
+        media.<span class="fn">Add</span>(<span class="kw">new</span> <span class="cl">Book</span>(<span class="str">"C# Programming"</span>, <span class="num">2023</span>));
 
-        foreach (IPrint x in media)
+        <span class="kw">foreach</span> (<span class="cl">IPrint</span> x <span class="kw">in</span> media)
         {
-            x.Print();
+            x.<span class="fn">Print</span>();
         }
     }
 }</div>
@@ -1301,7 +1330,7 @@ class Program
  </div>
         <h3 style="font-size:1.1rem; color:var(--accent); margin-bottom:0.75rem">وظيفة 6: IEmployee + Manager + Teacher (Interface + List)</h3>
         <p style="font-size:0.9rem; color:var(--text-muted); line-height:1.8; margin-bottom:1rem">
-          <strong style="color:var(--text)">السؤال:</strong> عرف واجهة IEmployee تحتوي Name و Salary و CalculateBonus(). Manager يحسب مكافأة 20% من الراتب. Teacher يحسب مكافأة 10% من الراتب. في Main أنشئ قائمة List<IEmployee> تحتوي مدير ومعلم، ثم اطبع اسم كل موظف وراتبه ومكافأته.
+          <strong style="color:var(--text)">السؤال:</strong> عرف واجهة IEmployee تحتوي Name و Salary و CalculateBonus(). Manager يحسب مكافأة 20% من الراتب. Teacher يحسب مكافأة 10% من الراتب. في Main أنشئ قائمة List&lt;IEmployee&gt; تحتوي مدير ومعلم، ثم اطبع اسم كل موظف وراتبه ومكافأته.
         </p>
       </div>
       <div class="code-wrap">
@@ -1309,59 +1338,58 @@ class Program
           <div class="dots"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div></div>
           <span class="code-title">Solution.cs</span>
         </div>
-        <div class="code-body">interface IEmployee
+        <div class="code-body"><span class="kw">interface</span> <span class="cl">IEmployee</span>
 {
-    string Name { get; set; }
-    double Salary { get; set; }
-    double CalculateBonus();
+    <span class="kw">string</span> Name { <span class="kw">get</span>; <span class="kw">set</span>; }
+    <span class="kw">double</span> Salary { <span class="kw">get</span>; <span class="kw">set</span>; }
+    <span class="kw">double</span> <span class="fn">CalculateBonus</span>();
 }
 
-class Manager : IEmployee
+<span class="kw">class</span> <span class="cl">Manager</span> : <span class="cl">IEmployee</span>
 {
-    public string Name { get; set; }
-    public double Salary { get; set; }
+    <span class="kw">public string</span> Name { <span class="kw">get</span>; <span class="kw">set</span>; }
+    <span class="kw">public double</span> Salary { <span class="kw">get</span>; <span class="kw">set</span>; }
 
-    public Manager(string name, double salary)
+    <span class="kw">public</span> <span class="fn">Manager</span>(<span class="kw">string</span> name, <span class="kw">double</span> salary)
     {
         Name = name;
         Salary = salary;
     }
 
-    public double CalculateBonus()
+    <span class="kw">public double</span> <span class="fn">CalculateBonus</span>()
     {
-        return Salary * 0.20;  // 20%
+        <span class="kw">return</span> Salary * <span class="num">0.20</span>;  <span class="cm">// 20%</span>
     }
 }
 
-class Teacher : IEmployee
+<span class="kw">class</span> <span class="cl">Teacher</span> : <span class="cl">IEmployee</span>
 {
-    public string Name { get; set; }
-    public double Salary { get; set; }
+    <span class="kw">public string</span> Name { <span class="kw">get</span>; <span class="kw">set</span>; }
+    <span class="kw">public double</span> Salary { <span class="kw">get</span>; <span class="kw">set</span>; }
 
-    public Teacher(string name, double salary)
+    <span class="kw">public</span> <span class="fn">Teacher</span>(<span class="kw">string</span> name, <span class="kw">double</span> salary)
     {
         Name = name;
         Salary = salary;
     }
 
-    public double CalculateBonus()
+    <span class="kw">public double</span> <span class="fn">CalculateBonus</span>()
     {
-        return Salary * 0.10;  // 10%
+        <span class="kw">return</span> Salary * <span class="num">0.10</span>;  <span class="cm">// 10%</span>
     }
 }
 
-class Program
+<span class="kw">class</span> <span class="cl">Program</span>
 {
-    static void Main()
+    <span class="kw">static void</span> <span class="fn">Main</span>()
     {
-        List&lt;IEmployee&gt; employees = new List&lt;IEmployee&gt;();
-        employees.Add(new Manager("Sara", 2000));
-        employees.Add(new Teacher("Ali", 3000));
+        <span class="cl">List</span>&lt;<span class="cl">IEmployee</span>&gt; employees = <span class="kw">new</span> <span class="cl">List</span>&lt;<span class="cl">IEmployee</span>&gt;();
+        employees.<span class="fn">Add</span>(<span class="kw">new</span> <span class="cl">Manager</span>(<span class="str">"Sara"</span>, <span class="num">2000</span>));
+        employees.<span class="fn">Add</span>(<span class="kw">new</span> <span class="cl">Teacher</span>(<span class="str">"Ali"</span>, <span class="num">3000</span>));
 
-        foreach (var emp in employees)
+        <span class="kw">foreach</span> (<span class="kw">var</span> emp <span class="kw">in</span> employees)
         {
-            Console.WriteLine("Name: {0}, Salary: {1}, Bonus: {2}",
-                emp.Name, emp.Salary, emp.CalculateBonus());
+            <span class="cl">Console</span>.<span class="fn">WriteLine</span>(<span class="str">$"Name: {emp.Name}, Salary: {emp.Salary}, Bonus: {emp.CalculateBonus()}"</span>);
         }
     }
 }</div>
@@ -1384,52 +1412,52 @@ class Program
           <div class="dots"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div></div>
           <span class="code-title">Solution.cs</span>
         </div>
-        <div class="code-body">interface IShape
+        <div class="code-body"><span class="kw">interface</span> <span class="cl">IShape</span>
 {
-    double CalculateArea();
+    <span class="kw">double</span> <span class="fn">CalculateArea</span>();
 }
 
-class Rectangle : IShape
+<span class="kw">class</span> <span class="cl">Rectangle</span> : <span class="cl">IShape</span>
 {
-    public double Length { get; set; }
-    public double Width { get; set; }
+    <span class="kw">public double</span> Length { <span class="kw">get</span>; <span class="kw">set</span>; }
+    <span class="kw">public double</span> Width { <span class="kw">get</span>; <span class="kw">set</span>; }
 
-    public Rectangle(double length, double width)
+    <span class="kw">public</span> <span class="fn">Rectangle</span>(<span class="kw">double</span> length, <span class="kw">double</span> width)
     {
         Length = length;
         Width = width;
     }
 
-    public double CalculateArea()
+    <span class="kw">public double</span> <span class="fn">CalculateArea</span>()
     {
-        return Length * Width;
+        <span class="kw">return</span> Length * Width;
     }
 }
 
-class Circle : IShape
+<span class="kw">class</span> <span class="cl">Circle</span> : <span class="cl">IShape</span>
 {
-    public double Radius { get; set; }
+    <span class="kw">public double</span> Radius { <span class="kw">get</span>; <span class="kw">set</span>; }
 
-    public Circle(double radius)
+    <span class="kw">public</span> <span class="fn">Circle</span>(<span class="kw">double</span> radius)
     {
         Radius = radius;
     }
 
-    public double CalculateArea()
+    <span class="kw">public double</span> <span class="fn">CalculateArea</span>()
     {
-        return Math.PI * Radius * Radius;
+        <span class="kw">return</span> <span class="cl">Math</span>.PI * Radius * Radius;
     }
 }
 
-class Program
+<span class="kw">class</span> <span class="cl">Program</span>
 {
-    static void Main()
+    <span class="kw">static void</span> <span class="fn">Main</span>()
     {
-        IShape s1 = new Rectangle(5, 4);
-        IShape s2 = new Circle(3);
+        <span class="cl">IShape</span> s1 = <span class="kw">new</span> <span class="cl">Rectangle</span>(<span class="num">5</span>, <span class="num">4</span>);
+        <span class="cl">IShape</span> s2 = <span class="kw">new</span> <span class="cl">Circle</span>(<span class="num">3</span>);
 
-        Console.WriteLine("Rectangle Area: " + s1.CalculateArea());
-        Console.WriteLine("Circle Area: " + s2.CalculateArea());
+        <span class="cl">Console</span>.<span class="fn">WriteLine</span>(<span class="str">$"Rectangle Area: {s1.CalculateArea()}"</span>);
+        <span class="cl">Console</span>.<span class="fn">WriteLine</span>(<span class="str">$"Circle Area: {s2.CalculateArea()}"</span>);
     }
 }</div>
       </div>
@@ -1442,7 +1470,7 @@ class Program
         </div>
         <h3 style="font-size:1.1rem; color:var(--accent); margin-bottom:0.75rem">وظيفة 8: IEmp + Employee + Manager + Teacher (Interface + Abstract + List)</h3>
         <p style="font-size:0.9rem; color:var(--text-muted); line-height:1.8; margin-bottom:1rem">
-          <strong style="color:var(--text)">السؤال:</strong> أنشئ واجهة IEmp تفرض CalculateTax(). أنشئ كلاساً مجرداً Employee يحتوي Name و Salary ودالة PrintInfo(). Manager ضرائبه 5% من الراتب. Teacher ضرائبه 4% من الراتب. في Main أنشئ قائمة List<Employee> واطبع معلومات كل موظف.
+          <strong style="color:var(--text)">السؤال:</strong> أنشئ واجهة IEmp تفرض CalculateTax(). أنشئ كلاساً مجرداً Employee يحتوي Name و Salary ودالة PrintInfo(). Manager ضرائبه 5% من الراتب. Teacher ضرائبه 4% من الراتب. في Main أنشئ قائمة List&lt;Employee&gt; واطبع معلومات كل موظف.
         </p>
       </div>
       <div class="code-wrap">
@@ -1450,62 +1478,61 @@ class Program
           <div class="dots"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div></div>
           <span class="code-title">Solution.cs</span>
         </div>
-        <div class="code-body">interface IEmp
+        <div class="code-body"><span class="kw">interface</span> <span class="cl">IEmp</span>
 {
-    double CalculateTax();
+    <span class="kw">double</span> <span class="fn">CalculateTax</span>();
 }
 
-abstract class Employee : IEmp
+<span class="kw">abstract class</span> <span class="cl">Employee</span> : <span class="cl">IEmp</span>
 {
-    public string Name { get; set; }
-    public double Salary { get; set; }
+    <span class="kw">public string</span> Name { <span class="kw">get</span>; <span class="kw">set</span>; }
+    <span class="kw">public double</span> Salary { <span class="kw">get</span>; <span class="kw">set</span>; }
 
-    public Employee(string name, double salary)
+    <span class="kw">public</span> <span class="fn">Employee</span>(<span class="kw">string</span> name, <span class="kw">double</span> salary)
     {
         Name = name;
         Salary = salary;
     }
 
-    public void PrintInfo()
+    <span class="kw">public void</span> <span class="fn">PrintInfo</span>()
     {
-        Console.WriteLine("Name: {0}, Salary: {1}, Tax: {2}",
-            Name, Salary, CalculateTax());
+        <span class="cl">Console</span>.<span class="fn">WriteLine</span>(<span class="str">$"Name: {Name}, Salary: {Salary}, Tax: {CalculateTax()}"</span>);
     }
 
-    public abstract double CalculateTax();
+    <span class="kw">public abstract double</span> <span class="fn">CalculateTax</span>();
 }
 
-class Manager : Employee
+<span class="kw">class</span> <span class="cl">Manager</span> : <span class="cl">Employee</span>
 {
-    public Manager(string name, double salary) : base(name, salary) { }
+    <span class="kw">public</span> <span class="fn">Manager</span>(<span class="kw">string</span> name, <span class="kw">double</span> salary) : <span class="kw">base</span>(name, salary) { }
 
-    public override double CalculateTax()
+    <span class="kw">public override double</span> <span class="fn">CalculateTax</span>()
     {
-        return Salary * 0.05;  // 5%
-    }
-}
-
-class Teacher : Employee
-{
-    public Teacher(string name, double salary) : base(name, salary) { }
-
-    public override double CalculateTax()
-    {
-        return Salary * 0.04;  // 4%
+        <span class="kw">return</span> Salary * <span class="num">0.05</span>;  <span class="cm">// 5%</span>
     }
 }
 
-class Program
+<span class="kw">class</span> <span class="cl">Teacher</span> : <span class="cl">Employee</span>
 {
-    static void Main()
-    {
-        List&lt;Employee&gt; employees = new List&lt;Employee&gt;();
-        employees.Add(new Manager("Ali", 5000));
-        employees.Add(new Teacher("Sara", 4000));
+    <span class="kw">public</span> <span class="fn">Teacher</span>(<span class="kw">string</span> name, <span class="kw">double</span> salary) : <span class="kw">base</span>(name, salary) { }
 
-        foreach (Employee emp in employees)
+    <span class="kw">public override double</span> <span class="fn">CalculateTax</span>()
+    {
+        <span class="kw">return</span> Salary * <span class="num">0.04</span>;  <span class="cm">// 4%</span>
+    }
+}
+
+<span class="kw">class</span> <span class="cl">Program</span>
+{
+    <span class="kw">static void</span> <span class="fn">Main</span>()
+    {
+        <span class="cl">List</span>&lt;<span class="cl">Employee</span>&gt; employees = <span class="kw">new</span> <span class="cl">List</span>&lt;<span class="cl">Employee</span>&gt;();
+        employees.<span class="fn">Add</span>(<span class="kw">new</span> <span class="cl">Manager</span>(<span class="str">"Ali"</span>, <span class="num">5000</span>));
+        employees.<span class="fn">Add</span>(<span class="kw">new</span> <span class="cl">Teacher</span>(<span class="str">"Sara"</span>, <span class="num">4000</span>));
+
+        <span class="kw">foreach</span> (<span class="cl">Employee</span> emp <span class="kw">in</span> employees)
         {
-            emp.PrintInfo();
+            emp.<span class="fn">PrintInfo</span>();
         }
     }
 }</div>
@@ -1528,42 +1555,45 @@ class Program
           <div class="dots"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div></div>
           <span class="code-title">Solution.cs</span>
         </div>
-        <div class="code-body">class Circle
+        <div class="code-body"><span class="kw">class</span> <span class="cl">Circle</span>
 {
-    public double Radius { get; set; }
+    <span class="kw">public double</span> Radius { <span class="kw">get</span>; <span class="kw">set</span>; }
 
-    public Circle(double radius)
+    <span class="kw">public</span> <span class="fn">Circle</span>(<span class="kw">double</span> radius)
     {
         Radius = radius;
     }
 
-    public double CalculateArea()
+    <span class="kw">public double</span> <span class="fn">CalculateArea</span>()
     {
-        return Math.PI * Radius * Radius;
+        <span class="kw">return</span> <span class="cl">Math</span>.PI * Radius * Radius;
     }
 }
 
-class Cylinder : Circle
+<span class="kw">class</span> <span class="cl">Cylinder</span> : <span class="cl">Circle</span>
 {
-    public double Height { get; set; }
+    <span class="kw">public double</span> Height { <span class="kw">get</span>; <span class="kw">set</span>; }
 
-    public Cylinder(double radius, double height) : base(radius)
+    <span class="kw">public</span> <span class="fn">Cylinder</span>(<span class="kw">double</span> radius, <span class="kw">double</span> height) : <span class="kw">base</span>(radius)
     {
         Height = height;
     }
- public double CalculateArea()
+    
+    <span class="kw">public double</span> <span class="fn">CalculateCylinderArea</span>()
     {
-        return 2 * Math.PI * Radius * (Radius + Height);
+        <span class="kw">return</span> <span class="num">2</span> * <span class="cl">Math</span>.PI * Radius * (Radius + Height);
     }
 }
 
-class Program
+<span class="kw">class</span> <span class="cl">Program</span>
 {
-    static void Main()
+    <span class="kw">static void</span> <span class="fn">Main</span>()
     {
-        Cylinder c = new Cylinder(5, 10);
-        Console.WriteLine("Circle Area: " + base.CalculateArea());
-        Console.WriteLine("Cylinder Area: " + c.CalculateArea());
+        <span class="cl">Circle</span> c = <span class="kw">new</span> <span class="cl">Circle</span>(<span class="num">5</span>);
+        <span class="cl">Cylinder</span> cyl = <span class="kw">new</span> <span class="cl">Cylinder</span>(<span class="num">5</span>, <span class="num">10</span>);
+        
+        <span class="cl">Console</span>.<span class="fn">WriteLine</span>(<span class="str">$"Circle Area: {c.CalculateArea()}"</span>);
+        <span class="cl">Console</span>.<span class="fn">WriteLine</span>(<span class="str">$"Cylinder Area: {cyl.CalculateCylinderArea()}"</span>);
     }
 }</div>
       </div>
@@ -1585,41 +1615,41 @@ class Program
           <div class="dots"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div></div>
           <span class="code-title">Solution.cs</span>
         </div>
-        <div class="code-body">class Parent
+        <div class="code-body"><span class="kw">class</span> <span class="cl">Parent</span>
 {
-    public string Name { get; set; }
-    public int Age { get; set; }
+    <span class="kw">public string</span> Name { <span class="kw">get</span>; <span class="kw">set</span>; }
+    <span class="kw">public int</span> Age { <span class="kw">get</span>; <span class="kw">set</span>; }
 
-    public Parent(string name, int age)
+    <span class="kw">public</span> <span class="fn">Parent</span>(<span class="kw">string</span> name, <span class="kw">int</span> age)
     {
         Name = name;
         Age = age;
     }
 }
 
-class Child : Parent
+<span class="kw">class</span> <span class="cl">Child</span> : <span class="cl">Parent</span>
 {
-    public int UniversityID { get; set; }
+    <span class="kw">public int</span> UniversityID { <span class="kw">get</span>; <span class="kw">set</span>; }
 
-    public Child(string name, int age, int uid) : base(name, age)
+    <span class="kw">public</span> <span class="fn">Child</span>(<span class="kw">string</span> name, <span class="kw">int</span> age, <span class="kw">int</span> uid) : <span class="kw">base</span>(name, age)
     {
         UniversityID = uid;
     }
 
-    public void PrintInfo()
+    <span class="kw">public void</span> <span class="fn">PrintInfo</span>()
     {
-        Console.WriteLine("Name: " + Name);
-        Console.WriteLine("Age: " + Age);
-        Console.WriteLine("UID: " + UniversityID);
+        <span class="cl">Console</span>.<span class="fn">WriteLine</span>(<span class="str">$"Name: {Name}"</span>);
+        <span class="cl">Console</span>.<span class="fn">WriteLine</span>(<span class="str">$"Age: {Age}"</span>);
+        <span class="cl">Console</span>.<span class="fn">WriteLine</span>(<span class="str">$"UID: {UniversityID}"</span>);
     }
 }
 
-class Program
+<span class="kw">class</span> <span class="cl">Program</span>
 {
-    static void Main()
+    <span class="kw">static void</span> <span class="fn">Main</span>()
     {
-        Child student = new Child("Ali", 20, 12345);
-        student.PrintInfo();
+        <span class="cl">Child</span> student = <span class="kw">new</span> <span class="cl">Child</span>(<span class="str">"Ali"</span>, <span class="num">20</span>, <span class="num">12345</span>);
+        student.<span class="fn">PrintInfo</span>();
     }
 }</div>
       </div>
@@ -1641,50 +1671,51 @@ class Program
           <div class="dots"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div></div>
           <span class="code-title">Solution.cs</span>
         </div>
-        <div class="code-body">class Point
+        <div class="code-body"><span class="kw">class</span> <span class="cl">Point</span>
 {
-    public double X { get; set; }
-    public double Y { get; set; }
+    <span class="kw">public double</span> X { <span class="kw">get</span>; <span class="kw">set</span>; }
+    <span class="kw">public double</span> Y { <span class="kw">get</span>; <span class="kw">set</span>; }
 
-    public Point(double x, double y)
+    <span class="kw">public</span> <span class="fn">Point</span>(<span class="kw">double</span> x, <span class="kw">double</span> y)
     {
         X = x;
         Y = y;
     }
 
-    public void Print()
+    <span class="kw">public void</span> <span class="fn">Print</span>()
     {
-        Console.WriteLine("Point: ({0}, {1})", X, Y);
+        <span class="cl">Console</span>.<span class="fn">WriteLine</span>(<span class="str">$"Point: ({X}, {Y})"</span>);
     }
 }
 
-class Circle : Point
+<span class="kw">class</span> <span class="cl">Circle</span> : <span class="cl">Point</span>
 {
-    public double Radius { get; set; }
+    <span class="kw">public double</span> Radius { <span class="kw">get</span>; <span class="kw">set</span>; }
 
-    public Circle(double x, double y, double radius) : base(x, y)
+    <span class="kw">public</span> <span class="fn">Circle</span>(<span class="kw">double</span> x, <span class="kw">double</span> y, <span class="kw">double</span> radius) : <span class="kw">base</span>(x, y)
     {
         Radius = radius;
     }
 
-    public double CalculateArea()
+    <span class="kw">public double</span> <span class="fn">CalculateArea</span>()
     {
-        return Math.PI * Radius * Radius;
+        <span class="kw">return</span> <span class="cl">Math</span>.PI * Radius * Radius;
     }
 
-    public void PrintInfo()
+    <span class="kw">public void</span> <span class="fn">PrintInfo</span>()
     {
-        Print();
-        Console.WriteLine("Radius: " + Radius);
-        Console.WriteLine("Area: " + CalculateArea());
+        <span class="fn">Print</span>();
+        <span class="cl">Console</span>.<span class="fn">WriteLine</span>(<span class="str">$"Radius: {Radius}"</span>);
+        <span class="cl">Console</span>.<span class="fn">WriteLine</span>(<span class="str">$"Area: {CalculateArea()}"</span>);
     }
 }
- class Program
+
+<span class="kw">class</span> <span class="cl">Program</span>
 {
-    static void Main()
+    <span class="kw">static void</span> <span class="fn">Main</span>()
     {
-        Circle c = new Circle(3, 4, 5);
-        c.PrintInfo();
+        <span class="cl">Circle</span> c = <span class="kw">new</span> <span class="cl">Circle</span>(<span class="num">3</span>, <span class="num">4</span>, <span class="num">5</span>);
+        c.<span class="fn">PrintInfo</span>();
     }
 }</div>
       </div>
@@ -1706,39 +1737,39 @@ class Circle : Point
           <div class="dots"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div></div>
           <span class="code-title">Solution.cs</span>
         </div>
-        <div class="code-body">class Shipping
+        <div class="code-body"><span class="kw">class</span> <span class="cl">Shipping</span>
 {
-    public double Weight { get; set; }
+    <span class="kw">public double</span> Weight { <span class="kw">get</span>; <span class="kw">set</span>; }
 
-    public Shipping(double weight)
+    <span class="kw">public</span> <span class="fn">Shipping</span>(<span class="kw">double</span> weight)
     {
         Weight = weight;
     }
 
-    public virtual double CalculateCost()
+    <span class="kw">public virtual double</span> <span class="fn">CalculateCost</span>()
     {
-        return 5 * Weight;  // 5 لكل كجم
+        <span class="kw">return</span> <span class="num">5</span> * Weight;  <span class="cm">// 5 لكل كجم</span>
     }
 }
 
-class FastShipping : Shipping
+<span class="kw">class</span> <span class="cl">FastShipping</span> : <span class="cl">Shipping</span>
 {
-    public FastShipping(double weight) : base(weight) { }
+    <span class="kw">public</span> <span class="fn">FastShipping</span>(<span class="kw">double</span> weight) : <span class="kw">base</span>(weight) { }
 
-    public override double CalculateCost()
+    <span class="kw">public override double</span> <span class="fn">CalculateCost</span>()
     {
-        return base.CalculateCost() + 10 * Weight;  // رسوم إضافية
+        <span class="kw">return</span> <span class="kw">base</span>.<span class="fn">CalculateCost</span>() + <span class="num">10</span> * Weight;  <span class="cm">// رسوم إضافية</span>
     }
 }
 
-class Program
+<span class="kw">class</span> <span class="cl">Program</span>
 {
-    static void Main()
+    <span class="kw">static void</span> <span class="fn">Main</span>()
     {
-        Shipping s1 = new Shipping(10);
-        Shipping s2 = new FastShipping(10);
-        Console.WriteLine("Normal Cost: " + s1.CalculateCost());
-        Console.WriteLine("Fast Cost: " + s2.CalculateCost());
+        <span class="cl">Shipping</span> s1 = <span class="kw">new</span> <span class="cl">Shipping</span>(<span class="num">10</span>);
+        <span class="cl">Shipping</span> s2 = <span class="kw">new</span> <span class="cl">FastShipping</span>(<span class="num">10</span>);
+        <span class="cl">Console</span>.<span class="fn">WriteLine</span>(<span class="str">$"Normal Cost: {s1.CalculateCost()}"</span>);
+        <span class="cl">Console</span>.<span class="fn">WriteLine</span>(<span class="str">$"Fast Cost: {s2.CalculateCost()}"</span>);
     }
 }</div>
       </div>
@@ -1760,43 +1791,44 @@ class Program
           <div class="dots"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div></div>
           <span class="code-title">Solution.cs</span>
         </div>
-        <div class="code-body">class Circle
+        <div class="code-body"><span class="kw">class</span> <span class="cl">Circle</span>
 {
-    public double Radius { get; set; }
+    <span class="kw">public double</span> Radius { <span class="kw">get</span>; <span class="kw">set</span>; }
 
-    public Circle(double radius)
+    <span class="kw">public</span> <span class="fn">Circle</span>(<span class="kw">double</span> radius)
     {
         Radius = radius;
     }
 
-    public virtual double CalculateArea()
+    <span class="kw">public virtual double</span> <span class="fn">CalculateArea</span>()
     {
-        return Math.PI * Radius * Radius;
+        <span class="kw">return</span> <span class="cl">Math</span>.PI * Radius * Radius;
     }
 }
 
-class Cylinder : Circle
+<span class="kw">class</span> <span class="cl">Cylinder</span> : <span class="cl">Circle</span>
 {
-    public double Height { get; set; }
+    <span class="kw">public double</span> Height { <span class="kw">get</span>; <span class="kw">set</span>; }
 
-    public Cylinder(double radius, double height) : base(radius)
+    <span class="kw">public</span> <span class="fn">Cylinder</span>(<span class="kw">double</span> radius, <span class="kw">double</span> height) : <span class="kw">base</span>(radius)
     {
         Height = height;
     }
 
-    public override double CalculateArea()
+    <span class="kw">public override double</span> <span class="fn">CalculateArea</span>()
     {
-        return 2 * Math.PI * Radius * (Radius + Height);
+        <span class="kw">return</span> <span class="num">2</span> * <span class="cl">Math</span>.PI * Radius * (Radius + Height);
     }
 }
- class Program
+
+<span class="kw">class</span> <span class="cl">Program</span>
 {
-    static void Main()
+    <span class="kw">static void</span> <span class="fn">Main</span>()
     {
-        Circle c = new Circle(5);
-        Cylinder cyl = new Cylinder(5, 10);
-        Console.WriteLine("Circle Area: " + c.CalculateArea());
-        Console.WriteLine("Cylinder Area: " + cyl.CalculateArea());
+        <span class="cl">Circle</span> c = <span class="kw">new</span> <span class="cl">Circle</span>(<span class="num">5</span>);
+        <span class="cl">Cylinder</span> cyl = <span class="kw">new</span> <span class="cl">Cylinder</span>(<span class="num">5</span>, <span class="num">10</span>);
+        <span class="cl">Console</span>.<span class="fn">WriteLine</span>(<span class="str">$"Circle Area: {c.CalculateArea()}"</span>);
+        <span class="cl">Console</span>.<span class="fn">WriteLine</span>(<span class="str">$"Cylinder Area: {cyl.CalculateArea()}"</span>);
     }
 }</div>
       </div>
@@ -1818,54 +1850,53 @@ class Cylinder : Circle
           <div class="dots"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div></div>
           <span class="code-title">Solution.cs</span>
         </div>
-        <div class="code-body">class Employee
+        <div class="code-body"><span class="kw">class</span> <span class="cl">Employee</span>
 {
-    public string Name { get; set; }
-    public double Salary { get; set; }
+    <span class="kw">public string</span> Name { <span class="kw">get</span>; <span class="kw">set</span>; }
+    <span class="kw">public double</span> Salary { <span class="kw">get</span>; <span class="kw">set</span>; }
 
-    public Employee(string name, double salary)
+    <span class="kw">public</span> <span class="fn">Employee</span>(<span class="kw">string</span> name, <span class="kw">double</span> salary)
     {
         Name = name;
         Salary = salary;
     }
 
-    public virtual double CalculateSalary()
+    <span class="kw">public virtual double</span> <span class="fn">CalculateSalary</span>()
     {
-        return Salary;
+        <span class="kw">return</span> Salary;
     }
 }
 
-class HourlyEmployee : Employee
+<span class="kw">class</span> <span class="cl">HourlyEmployee</span> : <span class="cl">Employee</span>
 {
-    public int Hours { get; set; }
-    public double HourRate { get; set; }
+    <span class="kw">public int</span> Hours { <span class="kw">get</span>; <span class="kw">set</span>; }
+    <span class="kw">public double</span> HourRate { <span class="kw">get</span>; <span class="kw">set</span>; }
 
-    public HourlyEmployee(string name, double salary, int hours, double rate)
-        : base(name, salary)
+    <span class="kw">public</span> <span class="fn">HourlyEmployee</span>(<span class="kw">string</span> name, <span class="kw">double</span> salary, <span class="kw">int</span> hours, <span class="kw">double</span> rate)
+        : <span class="kw">base</span>(name, salary)
     {
         Hours = hours;
         HourRate = rate;
     }
 
-    public override double CalculateSalary()
+    <span class="kw">public override double</span> <span class="fn">CalculateSalary</span>()
     {
-        return Salary + (Hours * HourRate);
+        <span class="kw">return</span> Salary + (Hours * HourRate);
     }
 }
 
-class Program
+<span class="kw">class</span> <span class="cl">Program</span>
 {
-    static void Main()
+    <span class="kw">static void</span> <span class="fn">Main</span>()
     {
-        Employee e1 = new Employee("Ali", 5000);
-        Employee e2 = new HourlyEmployee("Sara", 3000, 40, 50);
-        Console.WriteLine("Employee Salary: " + e1.CalculateSalary());
-        Console.WriteLine("Hourly Salary: " + e2.CalculateSalary());
+        <span class="cl">Employee</span> e1 = <span class="kw">new</span> <span class="cl">Employee</span>(<span class="str">"Ali"</span>, <span class="num">5000</span>);
+        <span class="cl">Employee</span> e2 = <span class="kw">new</span> <span class="cl">HourlyEmployee</span>(<span class="str">"Sara"</span>, <span class="num">3000</span>, <span class="num">40</span>, <span class="num">50</span>);
+        <span class="cl">Console</span>.<span class="fn">WriteLine</span>(<span class="str">$"Employee Salary: {e1.CalculateSalary()}"</span>);
+        <span class="cl">Console</span>.<span class="fn">WriteLine</span>(<span class="str">$"Hourly Salary: {e2.CalculateSalary()}"</span>);
     }
 }</div>
       </div>
     </div>
-  </div>
 </section>
 
 <hr class="divider">
@@ -1971,6 +2002,72 @@ function renderQuiz() {
   `).join('');
 }
 
+const canvas = document.getElementById('space-canvas');
+  const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+  camera.position.z = 2.5;
+
+  // إعداد النجوم (Particles)
+  const starsGeometry = new THREE.BufferGeometry();
+  const starsCount = 1800; // عدد النجوم في الفضاء
+  const starPositions = new Float32Array(starsCount * 3);
+
+  for(let i = 0; i < starsCount * 3; i++) {
+    starPositions[i] = (Math.random() - 0.5) * 8; // توزيع عشوائي ثلاثي الأبعاد
+  }
+  starsGeometry.setAttribute('position', new THREE.BufferAttribute(starPositions, 3));
+
+  // مظهر النجوم المتوهجة الشفافة
+  const starsMaterial = new THREE.PointsMaterial({
+    size: 0.012,
+    color: 0x58a6ff,
+    transparent: true,
+    opacity: 0.85,
+    blending: THREE.AdditiveBlending
+  });
+
+  const starField = new THREE.Points(starsGeometry, starsMaterial);
+  scene.add(starField);
+
+  // مصفوفة تفاعلية للماوس لإضافة تأثير عمق عند تحريك الماوس
+  let mouseX = 0, mouseY = 0;
+  window.addEventListener('mousemove', (e) => {
+    mouseX = (e.clientX / window.innerWidth) - 0.5;
+    mouseY = (e.clientY / window.innerHeight) - 0.5;
+  });
+
+  // حلقة التحريك والتدوير والتدفق المستمر في الفضاء
+  const clock = new THREE.Clock();
+
+  function animate() {
+    requestAnimationFrame(animate);
+    
+    const elapsedTime = clock.getElapsedTime();
+    
+    // دوران الفضاء ببطء وعشوائية مذهلة
+    starField.rotation.y = elapsedTime * 0.03;
+    starField.rotation.x = elapsedTime * 0.015;
+
+    // تفاعل ناعم مع حركة الماوس لتعزيز البعد الثالث
+    camera.position.x += (mouseX * 0.5 - camera.position.x) * 0.05;
+    camera.position.y += (-mouseY * 0.5 - camera.position.y) * 0.05;
+    camera.lookAt(scene.position);
+
+    renderer.render(scene, camera);
+  }
+
+  // التجاوب مع تغير حجم شاشة المستخدم
+  window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  });
+
+  animate();
 function answer(qi, oi) {
   if (answers[qi] !== null) return; // تم الإجابة مسبقاً
   answers[qi] = oi;
